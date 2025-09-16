@@ -21,7 +21,7 @@ const nextConfig = {
   generateEtags: true, // Enable ETags for caching
   // Performance optimizations
   experimental: {
-    optimizeCss: true, // Optimize CSS
+    optimizeCss: false, // Disable CSS optimization to prevent build issues
     optimizePackageImports: ['lucide-react'], // Optimize icon imports
   },
   // Security headers

@@ -132,15 +132,15 @@ export function Footer() {
               © 2024 Astra Consulting. Todos los derechos reservados.
             </div>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              <Link href="/politica-privacidad" className="text-primary-foreground/60 hover:text-secondary transition-colors">
                 Política de Privacidad
-              </a>
-              <a href="#" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              </Link>
+              <Link href="/terminos-servicio" className="text-primary-foreground/60 hover:text-secondary transition-colors">
                 Términos de Servicio
-              </a>
-              <a href="#" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              </Link>
+              <Link href="/cookies" className="text-primary-foreground/60 hover:text-secondary transition-colors">
                 Cookies
-              </a>
+              </Link>
             </div>
           </div>
         </div>
