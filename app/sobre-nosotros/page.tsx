@@ -32,32 +32,10 @@ export const metadata = {
 
 const teamMembers = [
   {
-    name: "Carlos Mendoza",
-    role: "CEO & Fundador",
-    expertise: "Estrategia Digital & Liderazgo",
-    experience: "3+ años",
-    description: "Experto en transformación digital con más de 3 años liderando proyectos tecnológicos en empresas chilenas."
-  },
-  {
-    name: "Ana Rodríguez",
-    role: "CTO",
-    expertise: "Desarrollo & Arquitectura",
-    experience: "12+ años",
-    description: "Especialista en tecnologías modernas, React, Next.js y arquitecturas escalables para empresas."
-  },
-  {
-    name: "Miguel Torres",
-    role: "SEO Director",
-    expertise: "Marketing Digital & SEO",
-    experience: "10+ años",
-    description: "Experto en posicionamiento web y estrategias de marketing digital para el mercado chileno."
-  },
-  {
-    name: "Sofia Herrera",
-    role: "Data Analyst",
-    expertise: "Analytics & BI",
-    experience: "8+ años",
-    description: "Especialista en análisis de datos, business intelligence y optimización de procesos empresariales."
+    name: "José Sepúlveda",
+    role: "Fundador & Desarrollador Full-Stack",
+    experience: "5+ años",
+    description: "Ingeniero en Informática y Analista Programador titulado, certificado en desarrollo Full-Stack y aplicaciones móviles. Especialista en Next.js y desarrollo de páginas web y aplicaciones a medida para empresas chilenas."
   }
 ]
 
@@ -87,23 +65,23 @@ const values = [
 const achievements = [
   {
     icon: Award,
-    title: "Certificación ISO 27001",
-    description: "Gestión de Seguridad de la Información"
+    title: "Certificación Scrum Foundational",
+    description: "Metodologías ágiles y gestión de proyectos"
   },
   {
     icon: Star,
-    title: "Google Partner",
-    description: "Certificación oficial de Google para marketing digital"
+    title: "Certificación Full-Stack",
+    description: "Desarrollo completo de aplicaciones web y móviles"
   },
   {
     icon: Code,
-    title: "Microsoft Partner",
-    description: "Especialistas en tecnologías Microsoft"
+    title: "Certificación Apps Móviles",
+    description: "Desarrollo de aplicaciones móviles nativas e híbridas"
   },
   {
     icon: Shield,
-    title: "Certificación AWS",
-    description: "Arquitectos certificados en Amazon Web Services"
+    title: "Títulos Profesionales",
+    description: "Ingeniero en Informática y Analista Programador"
   }
 ]
 
@@ -273,21 +251,23 @@ export default function SobreNosotrosPage() {
             </div>
           </AnimatedSection>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="max-w-4xl mx-auto">
             {teamMembers.map((member, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
                 <Card className="h-full hover:shadow-lg transition-all duration-300">
                   <CardHeader className="text-center">
-                    <div className="bg-secondary/10 p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                      <Users className="h-10 w-10 text-secondary" />
+                    <div className="bg-secondary/10 p-6 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                      <Users className="h-12 w-12 text-secondary" />
                     </div>
-                    <CardTitle className="text-xl">{member.name}</CardTitle>
-                    <CardDescription className="text-secondary font-semibold">{member.role}</CardDescription>
+                    <CardTitle className="text-2xl">{member.name}</CardTitle>
+                    <CardDescription className="text-secondary font-semibold text-lg">{member.role}</CardDescription>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <Badge variant="outline" className="mb-3">{member.expertise}</Badge>
-                    <p className="text-sm text-muted-foreground mb-2">{member.experience} de experiencia</p>
-                    <p className="text-sm text-muted-foreground">{member.description}</p>
+                    <Badge variant="outline" className="mb-3 text-xs font-medium">
+                      Consultoría & Desarrollo
+                    </Badge>
+                    <p className="text-base text-muted-foreground mb-3">{member.experience} de experiencia</p>
+                    <p className="text-base text-muted-foreground leading-relaxed">{member.description}</p>
                   </CardContent>
                 </Card>
               </AnimatedSection>
@@ -303,7 +283,7 @@ export default function SobreNosotrosPage() {
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Certificaciones y Logros</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Reconocimientos que respaldan nuestra experiencia y compromiso con la excelencia
+                Certificaciones profesionales y títulos que respaldan la experiencia y calidad en cada proyecto
               </p>
             </div>
           </AnimatedSection>

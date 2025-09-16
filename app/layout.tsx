@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -125,6 +126,7 @@ export default function RootLayout({
         >
           <Suspense fallback={null}>{children}</Suspense>
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
         
         {/* Google Analytics */}

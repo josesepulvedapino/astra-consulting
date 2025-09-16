@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, Code } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { useTheme } from "next-themes"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 export function Header() {
@@ -12,6 +13,14 @@ export function Header() {
   const [mounted, setMounted] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const { theme, systemTheme } = useTheme()
+  const pathname = usePathname()
+
+  // Función para determinar si un enlace está activo
+  const isActive = (path: string) => {
+    if (path === '/' && pathname === '/') return true
+    if (path !== '/' && pathname.startsWith(path)) return true
+    return false
+  }
 
   // Evitar problemas de hidratación
   useEffect(() => {
@@ -72,24 +81,51 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Navegación principal">
             <a 
               href="/servicios" 
-              className="text-foreground hover:text-secondary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1"
+              className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
+                isActive('/servicios') 
+                  ? 'text-secondary font-semibold' 
+                  : 'text-foreground hover:text-secondary hover:font-semibold'
+              }`}
               aria-label="Ver nuestros servicios de consultoría informática"
             >
               Servicios
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
+                isActive('/servicios') 
+                  ? 'w-full' 
+                  : 'w-0 group-hover:w-full'
+              }`}></span>
             </a>
             <a 
               href="/casos-exito" 
-              className="text-foreground hover:text-secondary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1"
+              className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
+                isActive('/casos-exito') 
+                  ? 'text-secondary font-semibold' 
+                  : 'text-foreground hover:text-secondary hover:font-semibold'
+              }`}
               aria-label="Ver casos de éxito y testimonios de clientes"
             >
               Casos de Éxito
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
+                isActive('/casos-exito') 
+                  ? 'w-full' 
+                  : 'w-0 group-hover:w-full'
+              }`}></span>
             </a>
             <a 
               href="/sobre-nosotros" 
-              className="text-foreground hover:text-secondary transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1"
+              className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
+                isActive('/sobre-nosotros') 
+                  ? 'text-secondary font-semibold' 
+                  : 'text-foreground hover:text-secondary hover:font-semibold'
+              }`}
               aria-label="Conoce más sobre Astra Consulting"
             >
               Sobre Nosotros
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
+                isActive('/sobre-nosotros') 
+                  ? 'w-full' 
+                  : 'w-0 group-hover:w-full'
+              }`}></span>
             </a>
           </nav>
 
@@ -141,8 +177,12 @@ export function Header() {
           <nav className="flex flex-col space-y-4" role="navigation" aria-label="Navegación móvil">
               <a 
                 href="/servicios" 
-                className={`text-foreground hover:text-secondary transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
+                className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
                   isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                } ${
+                  isActive('/servicios') 
+                    ? 'text-secondary font-semibold bg-secondary/10 rounded-md' 
+                    : 'text-foreground hover:text-secondary hover:font-semibold hover:bg-secondary/5 hover:rounded-md'
                 }`}
                 style={{ transitionDelay: isMenuOpen ? '0.1s' : '0s' }}
                 aria-label="Ver nuestros servicios de consultoría informática"
@@ -151,8 +191,12 @@ export function Header() {
               </a>
               <a 
                 href="/casos-exito" 
-                className={`text-foreground hover:text-secondary transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
+                className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
                   isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                } ${
+                  isActive('/casos-exito') 
+                    ? 'text-secondary font-semibold bg-secondary/10 rounded-md' 
+                    : 'text-foreground hover:text-secondary hover:font-semibold hover:bg-secondary/5 hover:rounded-md'
                 }`}
                 style={{ transitionDelay: isMenuOpen ? '0.2s' : '0s' }}
                 aria-label="Ver casos de éxito y testimonios de clientes"
@@ -161,8 +205,12 @@ export function Header() {
               </a>
               <a 
                 href="/sobre-nosotros" 
-                className={`text-foreground hover:text-secondary transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
+                className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
                   isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                } ${
+                  isActive('/sobre-nosotros') 
+                    ? 'text-secondary font-semibold bg-secondary/10 rounded-md' 
+                    : 'text-foreground hover:text-secondary hover:font-semibold hover:bg-secondary/5 hover:rounded-md'
                 }`}
                 style={{ transitionDelay: isMenuOpen ? '0.3s' : '0s' }}
                 aria-label="Conoce más sobre Astra Consulting"
