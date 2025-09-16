@@ -12,7 +12,7 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Astra Consulting - Consultoría Informática y SEO | Transformación Digital",
   description:
-    "Consultoría informática líder en Chile. Especialistas en SEO, transformación digital, desarrollo web y soluciones tecnológicas innovadoras para empresas chilenas.",
+    "Consultoría informática líder en Chile. Especialistas en SEO, desarrollo web y transformación digital. Resultados garantizados.",
   keywords:
     "consultoría informática Chile, SEO Chile, transformación digital, desarrollo web Chile, tecnología empresarial, marketing digital Chile",
   authors: [{ name: "Astra Consulting" }],
@@ -57,7 +57,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Astra Consulting",
-    "description": "Consultoría informática líder en Chile. Especialistas en SEO, transformación digital, desarrollo web y soluciones tecnológicas innovadoras para empresas chilenas.",
+    "description": "Consultoría informática líder en Chile. Especialistas en SEO, desarrollo web y transformación digital. Resultados garantizados.",
     "url": "https://astraconsulting.cl",
     "logo": "https://astraconsulting.cl/logo.png",
     "image": "https://astraconsulting.cl/og-image.jpg",

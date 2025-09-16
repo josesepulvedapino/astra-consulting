@@ -120,7 +120,6 @@ export default function CookiesPage() {
                           </p>
                           <ul className="text-sm text-muted-foreground space-y-1">
                             <li>• Google Analytics (tráfico y comportamiento)</li>
-                            <li>• Vercel Analytics (rendimiento)</li>
                             <li>• Métricas de uso del sitio</li>
                           </ul>
                         </div>
@@ -232,12 +231,6 @@ export default function CookiesPage() {
                       </p>
                     </div>
                     
-                    <div className="p-4 bg-card rounded-lg border">
-                      <h4 className="font-semibold mb-2">Vercel Analytics</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Utilizamos Vercel Analytics para monitorear el rendimiento y la funcionalidad de nuestro sitio web.
-                      </p>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
