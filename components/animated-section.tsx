@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { ReactNode } from "react"
 
@@ -31,7 +31,7 @@ export function AnimatedSection({
     right: { x: -60, opacity: 0 },
   }
 
-  const animateVariants = {
+  const animateVariants: Variants = {
     hidden: directionVariants[direction],
     visible: {
       y: 0,
@@ -40,7 +40,7 @@ export function AnimatedSection({
       transition: {
         duration,
         delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: "easeOut" as const,
       },
     },
   }
