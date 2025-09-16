@@ -2,10 +2,17 @@
 
 import { Code, Mail, Phone, MapPin, Linkedin, Twitter, Instagram } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 
 export function Footer() {
-  const { theme } = useTheme()
+  const { theme, systemTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Evitar problemas de hidratación
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -15,7 +22,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center space-x-3 mb-6 hover:opacity-80 transition-opacity cursor-pointer">
               <img 
-                src={theme === 'dark' ? '/logo.png' : '/logo-dark.png'} 
+                src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo.png' : '/logo-dark.png'} 
                 alt="Astra Consulting Logo" 
                 className="h-10 w-auto"
               />

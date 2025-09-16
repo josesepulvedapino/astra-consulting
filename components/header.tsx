@@ -9,8 +9,14 @@ import Link from "next/link"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const { theme } = useTheme()
+  const { theme, systemTheme } = useTheme()
+
+  // Evitar problemas de hidratación
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Cerrar menú al hacer clic fuera
   useEffect(() => {
@@ -56,7 +62,7 @@ export function Header() {
             aria-label="Astra Consulting - Ir al inicio"
           >
             <img 
-              src={theme === 'dark' ? '/logo-dark.png' : '/logo.png'} 
+              src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo-dark.png' : '/logo.png'} 
               alt="Astra Consulting Logo" 
               className="h-12 md:h-14 w-auto"
             />
