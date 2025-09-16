@@ -1,18 +1,9 @@
 "use client"
 
-import { Code, Mail, Phone, MapPin, Linkedin } from "lucide-react"
-import { useTheme } from "next-themes"
-import { useState, useEffect } from "react"
+import { Mail, Phone, MapPin, Linkedin } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
-  const { theme, systemTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  // Evitar problemas de hidratación
-  useEffect(() => {
-    setMounted(true)
-  }, [])
   
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -22,11 +13,11 @@ export function Footer() {
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center space-x-3 mb-6 hover:opacity-80 transition-opacity cursor-pointer">
               <img 
-                src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo.svg' : '/logo-dark.svg'} 
+                src="/logo.svg" 
                 alt="Astra Consulting Logo" 
                 className="h-10 w-auto"
               />
-              <span className="text-xl font-bold">Astra Consulting</span>
+              <span className="text-xl font-bold">Consulting</span>
             </a>
             <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6">
               Consultoría informática líder en Chile, especializada en transformación digital, SEO y desarrollo de

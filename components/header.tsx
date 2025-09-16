@@ -2,17 +2,14 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Code } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const { theme, systemTheme } = useTheme()
   const pathname = usePathname()
 
   // Función para determinar si un enlace está activo
@@ -21,11 +18,6 @@ export function Header() {
     if (path !== '/' && pathname.startsWith(path)) return true
     return false
   }
-
-  // Evitar problemas de hidratación
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // Cerrar menú al hacer clic fuera
   useEffect(() => {
@@ -71,7 +63,7 @@ export function Header() {
             aria-label="Astra Consulting - Ir al inicio"
           >
             <img 
-              src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo-dark.svg' : '/logo.svg'} 
+              src="/logo.svg" 
               alt="Astra Consulting Logo" 
               className="h-12 md:h-14 w-auto"
             />
