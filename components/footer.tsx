@@ -22,7 +22,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <a href="/" className="flex items-center space-x-3 mb-6 hover:opacity-80 transition-opacity cursor-pointer">
               <img 
-                src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo.png' : '/logo-dark.png'} 
+                src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo.svg' : '/logo-dark.svg'} 
                 alt="Astra Consulting Logo" 
                 className="h-10 w-auto"
               />

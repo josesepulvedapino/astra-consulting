@@ -71,7 +71,7 @@ export function Header() {
             aria-label="Astra Consulting - Ir al inicio"
           >
             <img 
-              src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo-dark.png' : '/logo.png'} 
+              src={mounted && (theme === 'dark' || (theme === 'system' && systemTheme === 'dark')) ? '/logo-dark.svg' : '/logo.svg'} 
               alt="Astra Consulting Logo" 
               className="h-12 md:h-14 w-auto"
             />
