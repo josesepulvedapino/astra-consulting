@@ -54,23 +54,37 @@ export function Header() {
   }, [isMenuOpen])
 
   return (
-    <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50" ref={menuRef}>
+    <header 
+      className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50" 
+      ref={menuRef}
+      style={{ 
+        minHeight: '4rem',
+        contain: 'layout style'
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <a 
-            href="/" 
-            className="flex items-center hover:opacity-80 transition-opacity cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-lg"
-            aria-label="Astra Consulting - Ir al inicio"
-          >
-            <img 
-              src="/logo.svg" 
-              alt="Astra Consulting Logo" 
-              className="h-12 md:h-14 w-auto"
-            />
-          </a>
+        <div className="flex items-center justify-between h-16 min-h-[4rem]" style={{ contain: 'layout' }}>
+          <div className="flex-shrink-0">
+            <a 
+              href="/" 
+              className="flex items-center hover:opacity-80 transition-opacity cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-lg"
+              aria-label="Astra Consulting - Ir al inicio"
+            >
+              <img 
+                src="/logo.svg" 
+                alt="Astra Consulting Logo" 
+                className="h-12 md:h-14 w-auto transition-none"
+                style={{ 
+                  minHeight: '48px',
+                  display: 'block',
+                  willChange: 'auto'
+                }}
+              />
+            </a>
+          </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Navegación principal">
+          <nav className="hidden md:flex items-center space-x-8 flex-1 justify-center" role="navigation" aria-label="Navegación principal">
             <a 
               href="/servicios" 
               className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
@@ -121,7 +135,7 @@ export function Header() {
             </a>
           </nav>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4 flex-shrink-0">
             <ThemeToggle />
             <Link href="#contacto">
               <Button 
@@ -146,15 +160,17 @@ export function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <button 
-            className="md:hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md p-1" 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="md:hidden flex-shrink-0">
+            <button 
+              className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md p-1" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -165,6 +181,10 @@ export function Header() {
               ? 'max-h-96 opacity-100 py-4 border-t border-border' 
               : 'max-h-0 opacity-0 py-0 border-t-0'
           }`}
+          style={{ 
+            willChange: isMenuOpen ? 'auto' : 'max-height, opacity',
+            contain: 'layout style'
+          }}
         >
           <nav className="flex flex-col space-y-4" role="navigation" aria-label="Navegación móvil">
               <a 
