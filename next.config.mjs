@@ -6,6 +6,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false, // Enable TypeScript checking
   },
+  // Disable static optimization for error pages
+  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
   images: {
     unoptimized: false, // Enable image optimization for better SEO
     formats: ['image/webp', 'image/avif'], // Modern image formats
