@@ -114,7 +114,6 @@ export function ContactSection() {
         
         if (selectedService) {
           const serviceData = JSON.parse(selectedService)
-          console.log('Pre-llenando formulario con datos de localStorage:', serviceData)
           
           const formattedPrice = new Intl.NumberFormat('es-CL', {
             style: 'currency',
