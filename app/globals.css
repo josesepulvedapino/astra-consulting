@@ -635,17 +635,48 @@
   }
 }
 
-/* Performance Optimizations */
-.will-change-transform {
-  will-change: transform;
-}
+  /* Performance Optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
 
-.will-change-opacity {
-  will-change: opacity;
-}
+  .will-change-opacity {
+    will-change: opacity;
+  }
 
-.gpu-accelerated {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Layout Shift Prevention */
+  .logo-container {
+    width: 200px;
+    height: 56px;
+    min-width: 200px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .logo-image {
+    width: auto;
+    height: 100%;
+    max-width: 200px;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Prevent layout shift on header */
+  header {
+    contain: layout style;
+  }
+
+  /* Ensure consistent header height */
+  .header-container {
+    min-height: 4rem;
+    height: 4rem;
+  }

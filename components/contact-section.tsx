@@ -8,9 +8,90 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react"
 import { AnimatedSection } from "@/components/animated-section"
+import { useAnalytics } from "@/hooks/use-analytics"
+
+// Tipos para el formulario
+interface FormData {
+  name: string
+  email: string
+  company: string
+  phone: string
+  service: string
+  message: string
+}
+
+interface FormErrors {
+  name?: string
+  email?: string
+  company?: string
+  phone?: string
+  service?: string
+  message?: string
+}
+
+// Función de validación simple
+const validateForm = (data: FormData): FormErrors => {
+  const errors: FormErrors = {}
+
+  // Validar nombre
+  if (!data.name.trim()) {
+    errors.name = 'El nombre es obligatorio'
+  } else if (data.name.trim().length < 2) {
+    errors.name = 'El nombre debe tener al menos 2 caracteres'
+  } else if (data.name.trim().length > 50) {
+    errors.name = 'El nombre no puede exceder 50 caracteres'
+  } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(data.name.trim())) {
+    errors.name = 'El nombre solo puede contener letras y espacios'
+  }
+
+  // Validar email
+  if (!data.email.trim()) {
+    errors.email = 'El email es obligatorio'
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+    errors.email = 'Por favor ingresa un email válido'
+  } else if (data.email.trim().length < 5) {
+    errors.email = 'El email debe tener al menos 5 caracteres'
+  }
+
+  // Validar empresa
+  if (!data.company.trim()) {
+    errors.company = 'El nombre de la empresa es obligatorio'
+  } else if (data.company.trim().length < 2) {
+    errors.company = 'El nombre de la empresa debe tener al menos 2 caracteres'
+  } else if (data.company.trim().length > 100) {
+    errors.company = 'El nombre de la empresa no puede exceder 100 caracteres'
+  }
+
+  // Validar teléfono (opcional)
+  if (data.phone.trim()) {
+    // Verificar que tenga el formato correcto: +56 9 1234 5678
+    const phoneRegex = /^\+56\s9\s\d{4}\s\d{4}$/
+    if (!phoneRegex.test(data.phone.trim())) {
+      errors.phone = 'Formato de teléfono chileno inválido (ej: +56 9 1234 5678)'
+    }
+  }
+
+  // Validar servicio
+  if (!data.service) {
+    errors.service = 'Por favor selecciona un servicio de interés'
+  }
+
+  // Validar mensaje
+  if (!data.message.trim()) {
+    errors.message = 'El mensaje es obligatorio'
+  } else if (data.message.trim().length < 10) {
+    errors.message = 'El mensaje debe tener al menos 10 caracteres'
+  } else if (data.message.trim().length > 1000) {
+    errors.message = 'El mensaje no puede exceder 1000 caracteres'
+  }
+
+  return errors
+}
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
+  const { trackEvent, trackConversion } = useAnalytics()
+  
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     company: "",
@@ -19,33 +100,114 @@ export function ContactSection() {
     message: "",
   })
 
+  const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const formatPhoneNumber = (value: string): string => {
+    // Remover todo excepto números
+    const numbers = value.replace(/\D/g, '')
+    
+    // Si está vacío, retornar vacío
+    if (!numbers) return ''
+    
+    // Si empieza con 56, mantener el +56
+    if (numbers.startsWith('56')) {
+      const remaining = numbers.slice(2)
+      if (remaining.length === 0) return '+56'
+      if (remaining.length <= 1) return `+56 ${remaining}`
+      if (remaining.length <= 5) return `+56 ${remaining.slice(0, 1)} ${remaining.slice(1)}`
+      return `+56 ${remaining.slice(0, 1)} ${remaining.slice(1, 5)} ${remaining.slice(5, 9)}`
+    }
+    
+    // Si empieza con 9 (móvil chileno)
+    if (numbers.startsWith('9')) {
+      if (numbers.length <= 1) return '+56 9'
+      if (numbers.length <= 5) return `+56 9 ${numbers.slice(1)}`
+      return `+56 9 ${numbers.slice(1, 5)} ${numbers.slice(5, 9)}`
+    }
+    
+    // Para otros casos, agregar +56 automáticamente
+    if (numbers.length <= 1) return `+56 9 ${numbers}`
+    if (numbers.length <= 5) return `+56 9 ${numbers}`
+    return `+56 9 ${numbers.slice(0, 4)} ${numbers.slice(4, 8)}`
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    
+    // Validación especial para teléfono
+    if (name === 'phone') {
+      // Formatear el número automáticamente
+      const formattedPhone = formatPhoneNumber(value)
+      
+      // Limitar a máximo 15 caracteres (longitud de +56 9 1234 5678)
+      const limitedPhone = formattedPhone.length > 15 ? formattedPhone.slice(0, 15) : formattedPhone
+      
+      setFormData(prev => ({
+        ...prev,
+        [name]: limitedPhone
+      }))
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }))
+    }
+    
+    // Limpiar error del campo cuando el usuario empiece a escribir
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }))
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validar formulario
+    const validationErrors = validateForm(formData)
+    setErrors(validationErrors)
+    
+    // Si hay errores, no enviar
+    if (Object.keys(validationErrors).length > 0) {
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setErrorMessage('')
 
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const response = await fetch('https://formspree.io/f/mgvljpnr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          phone: formData.phone,
-          service: formData.service,
-          message: formData.message,
+          ...formData,
+          _subject: `Nueva consulta de ${formData.company} - ${formData.service}`,
+          _replyto: formData.email,
+          _cc: 'contacto@astraconsulting.cl',
+          _next: window.location.href + '?success=true'
         }),
       })
 
       if (response.ok) {
         setSubmitStatus('success')
-        // Reset form
+        
+        // Trackear conversión exitosa
+        trackConversion('contact_form_submit', 1)
+        trackEvent('contact_form_success', {
+          service: formData.service,
+          company: formData.company,
+          event_category: 'conversion'
+        })
+        
+        // Limpiar formulario
         setFormData({
           name: "",
           email: "",
@@ -54,21 +216,18 @@ export function ContactSection() {
           service: "",
           message: "",
         })
+        setErrors({})
       } else {
+        const errorData = await response.json()
+        setErrorMessage(errorData.error || 'Error al enviar el formulario')
         setSubmitStatus('error')
       }
     } catch (error) {
+      setErrorMessage('Error de conexión. Por favor, inténtalo de nuevo.')
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
   }
 
   return (
@@ -176,12 +335,16 @@ export function ContactSection() {
                           id="name"
                           name="name"
                           type="text"
-                          required
                           value={formData.name}
                           onChange={handleChange}
-                          className="border-border focus:ring-secondary focus:border-secondary"
+                          className={`border-border focus:ring-secondary focus:border-secondary ${
+                            errors.name ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
+                          }`}
                           placeholder="Tu nombre completo"
                         />
+                        {errors.name && (
+                          <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                        )}
                       </div>
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
@@ -191,12 +354,16 @@ export function ContactSection() {
                           id="email"
                           name="email"
                           type="email"
-                          required
                           value={formData.email}
                           onChange={handleChange}
-                          className="border-border focus:ring-secondary focus:border-secondary"
+                          className={`border-border focus:ring-secondary focus:border-secondary ${
+                            errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
+                          }`}
                           placeholder="tu@empresa.cl"
                         />
+                        {errors.email && (
+                          <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                        )}
                       </div>
                     </div>
 
@@ -209,12 +376,16 @@ export function ContactSection() {
                           id="company"
                           name="company"
                           type="text"
-                          required
                           value={formData.company}
                           onChange={handleChange}
-                          className="border-border focus:ring-secondary focus:border-secondary"
+                          className={`border-border focus:ring-secondary focus:border-secondary ${
+                            errors.company ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
+                          }`}
                           placeholder="Nombre de tu empresa"
                         />
+                        {errors.company && (
+                          <p className="text-red-500 text-xs mt-1">{errors.company}</p>
+                        )}
                       </div>
                       <div>
                         <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
@@ -226,9 +397,15 @@ export function ContactSection() {
                           type="tel"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="border-border focus:ring-secondary focus:border-secondary"
-                          placeholder="+56 9 2687 3545"
+                          className={`border-border focus:ring-secondary focus:border-secondary ${
+                            errors.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
+                          }`}
+                          placeholder="+56 9 1234 5678"
+                          maxLength={15}
                         />
+                        {errors.phone && (
+                          <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                        )}
                       </div>
                     </div>
 
@@ -240,10 +417,11 @@ export function ContactSection() {
                         <select
                           id="service"
                           name="service"
-                          required
                           value={formData.service}
                           onChange={handleChange}
-                          className="custom-select custom-select-arrow"
+                          className={`custom-select custom-select-arrow ${
+                            errors.service ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
+                          }`}
                         >
                           <option value="">Selecciona un servicio</option>
                           <option value="seo">SEO y Marketing Digital</option>
@@ -258,6 +436,9 @@ export function ContactSection() {
                         {/* Hover effect overlay */}
                         <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                       </div>
+                      {errors.service && (
+                        <p className="text-red-500 text-xs mt-1">{errors.service}</p>
+                      )}
                     </div>
 
                     <div>
@@ -267,13 +448,22 @@ export function ContactSection() {
                       <Textarea
                         id="message"
                         name="message"
-                        required
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className="border-border focus:ring-secondary focus:border-secondary"
+                        className={`border-border focus:ring-secondary focus:border-secondary ${
+                          errors.message ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
+                        }`}
                         placeholder="Describe brevemente tu proyecto, objetivos y cómo podemos ayudarte..."
                       />
+                      {errors.message && (
+                        <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+                      )}
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs text-muted-foreground">
+                          {formData.message.length}/1000 caracteres
+                        </span>
+                      </div>
                     </div>
 
                     <Button
@@ -291,14 +481,14 @@ export function ContactSection() {
 
                     {/* Status Messages */}
                     {submitStatus === 'success' && (
-                      <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-center">
+                      <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200 text-center">
                         ✅ ¡Mensaje enviado exitosamente! Te contactaremos pronto.
                       </div>
                     )}
                     
                     {submitStatus === 'error' && (
-                      <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-center">
-                        ❌ Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos directamente.
+                      <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200 text-center">
+                        ❌ {errorMessage || 'Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos directamente.'}
                       </div>
                     )}
 

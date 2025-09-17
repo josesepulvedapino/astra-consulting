@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { useAnalytics } from "@/hooks/use-analytics"
 
 export function Header() {
+  const { trackEvent } = useAnalytics()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
@@ -53,6 +54,23 @@ export function Header() {
     }
   }, [isMenuOpen])
 
+  // Funciones de tracking para botones CTA
+  const handleConsultaClick = () => {
+    trackEvent('cta_click', {
+      button_text: 'Consulta Gratuita',
+      button_location: 'header',
+      event_category: 'engagement'
+    })
+  }
+
+  const handleComenzarClick = () => {
+    trackEvent('cta_click', {
+      button_text: 'Comenzar Ahora',
+      button_location: 'header',
+      event_category: 'engagement'
+    })
+  }
+
   return (
     <header 
       className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50" 
@@ -63,23 +81,24 @@ export function Header() {
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 min-h-[4rem]" style={{ contain: 'layout' }}>
+        <div className="flex items-center justify-between h-16 min-h-[4rem] header-container" style={{ contain: 'layout' }}>
           <div className="flex-shrink-0">
             <a 
               href="/" 
               className="flex items-center hover:opacity-80 transition-opacity cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-lg"
               aria-label="Astra Consulting - Ir al inicio"
             >
-              <img 
-                src="/logo.svg" 
-                alt="Astra Consulting Logo" 
-                className="h-12 md:h-14 w-auto transition-none"
-                style={{ 
-                  minHeight: '48px',
-                  display: 'block',
-                  willChange: 'auto'
-                }}
-              />
+              <div className="logo-container">
+                <img 
+                  src="/logo.svg" 
+                  alt="Astra Consulting Logo" 
+                  className="logo-image"
+                  width="200"
+                  height="56"
+                  loading="eager"
+                  decoding="sync"
+                />
+              </div>
             </a>
           </div>
 
@@ -136,11 +155,11 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4 flex-shrink-0">
-            <ThemeToggle />
             <Link href="#contacto">
               <Button 
                 variant="outline" 
                 size="sm" 
+                onClick={handleConsultaClick}
                 className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20"
                 aria-label="Solicitar consulta gratuita"
               >
@@ -150,6 +169,7 @@ export function Header() {
             </Link>
             <Link href="/servicios">
               <Button 
+                onClick={handleComenzarClick}
                 className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20"
                 aria-label="Comenzar transformación digital ahora"
               >
@@ -239,6 +259,7 @@ export function Header() {
                     <Button 
                       variant="outline" 
                       size="sm" 
+                      onClick={handleConsultaClick}
                       className="hover:scale-105 hover:bg-accent hover:text-accent-foreground transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
                       aria-label="Solicitar consulta gratuita desde móvil"
                     >
@@ -247,15 +268,13 @@ export function Header() {
                   </Link>
                   <Link href="/servicios">
                     <Button 
+                      onClick={handleComenzarClick}
                       className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
                       aria-label="Comenzar transformación digital ahora desde móvil"
                     >
                       Comenzar Ahora
                     </Button>
                   </Link>
-                </div>
-                <div className="flex justify-start">
-                  <ThemeToggle />
                 </div>
               </div>
             </nav>
