@@ -94,7 +94,7 @@ export function Header() {
                   alt="Astra Consulting Logo" 
                   className="logo-image"
                   width="200"
-                  height="56"
+                  height="60"
                   loading="eager"
                   decoding="sync"
                 />

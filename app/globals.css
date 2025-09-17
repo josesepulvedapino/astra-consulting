@@ -653,9 +653,9 @@
   /* Layout Shift Prevention */
   .logo-container {
     width: 200px;
-    height: 56px;
+    height: 60px;
     min-width: 200px;
-    min-height: 48px;
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;

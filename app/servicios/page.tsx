@@ -5,6 +5,7 @@ import { AnimatedCounter } from "@/components/animated-counter"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { ServicePricingSlider } from "@/components/service-pricing-slider"
 import Link from "next/link"
 import { 
   Search, 
@@ -38,14 +39,14 @@ const services = [
     description: "Transformamos tu presencia digital con estrategias SEO avanzadas y marketing digital integral. Aumentamos tu visibilidad en Google y generamos más leads calificados para tu negocio.",
     detailedDescription: "Nuestro enfoque integral combina técnicas SEO técnicas y de contenido, marketing digital estratégico y análisis de datos para maximizar tu ROI. Trabajamos con las últimas herramientas y metodologías para posicionar tu empresa en los primeros resultados de búsqueda.",
     features: [
-      "Auditoría SEO completa y análisis técnico",
-      "Optimización on-page y off-page",
+      "Optimización básica SEO",
+      "5-30+ keywords principales",
       "Link building local y nacional",
-      "Análisis de competencia y keywords",
       "Marketing de contenidos estratégico",
-      "Google Ads y Facebook Ads optimizados",
+      "Google Ads y Facebook Ads",
       "Analytics y reportes detallados",
-      "Estrategia de redes sociales"
+      "Estrategia de redes sociales",
+      "ROI tracking y análisis"
     ],
     technologies: ["Google Analytics", "Search Console", "SEMrush", "Ahrefs", "WordPress", "Yoast SEO"],
     benefits: [
@@ -54,7 +55,7 @@ const services = [
       "Generación de leads calificados",
       "ROI medible y reportes transparentes"
     ],
-    pricing: "Desde $500.000/mes",
+    pricing: "Desde $100.000/mes",
     duration: "3-6 meses para resultados visibles",
     industry: "Todas las industrias",
     color: "bg-blue-500"
@@ -62,19 +63,19 @@ const services = [
   {
     id: 2,
     icon: Code,
-    title: "Desarrollo Web Avanzado",
+    title: "Desarrollo Web",
     subtitle: "Sitios Web Modernos y Escalables",
     description: "Desarrollamos sitios web modernos, rápidos y optimizados para conversión. Utilizamos tecnologías de última generación adaptadas específicamente a las necesidades de tu negocio.",
     detailedDescription: "Creamos experiencias web excepcionales que no solo se ven increíbles, sino que también funcionan perfectamente. Desde sitios corporativos hasta e-commerce complejos, utilizamos las mejores prácticas de desarrollo y diseño UX/UI.",
     features: [
-      "Desarrollo con React y Next.js",
-      "E-commerce personalizado y escalable",
-      "Aplicaciones web progresivas (PWA)",
-      "Integración de APIs y sistemas",
-      "Optimización de rendimiento",
+      "Landing pages optimizadas",
+      "Sitios corporativos completos",
+      "E-commerce personalizado",
       "Diseño responsive y accesible",
       "SEO técnico integrado",
-      "Mantenimiento y soporte continuo"
+      "Panel administrativo",
+      "Integración de pagos",
+      "Mantenimiento y soporte"
     ],
     technologies: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS", "Vercel"],
     benefits: [
@@ -83,7 +84,7 @@ const services = [
       "Conversión optimizada",
       "Escalabilidad garantizada"
     ],
-    pricing: "Desde $1.500.000",
+    pricing: "Desde $100.000",
     duration: "4-8 semanas",
     industry: "E-commerce, Corporativo, SaaS",
     color: "bg-green-500"
@@ -91,30 +92,30 @@ const services = [
   {
     id: 3,
     icon: Smartphone,
-    title: "Aplicaciones Móviles",
-    subtitle: "Apps que Conectan con tus Clientes",
-    description: "Desarrollamos aplicaciones móviles nativas e híbridas que conectan directamente con tus clientes. Creamos experiencias móviles que impulsan el engagement y aumentan las ventas.",
-    detailedDescription: "En un mundo móvil, tu aplicación es la puerta de entrada a tus clientes. Desarrollamos apps que no solo funcionan perfectamente, sino que también generan valor real para tu negocio y tus usuarios.",
+    title: "Aplicaciones",
+    subtitle: "Web y Móviles que Conectan con tus Clientes",
+    description: "Desarrollamos aplicaciones web progresivas y móviles que conectan directamente con tus clientes. Creamos experiencias digitales que impulsan el engagement y aumentan las ventas.",
+    detailedDescription: "En un mundo digital, tus aplicaciones son la puerta de entrada a tus clientes. Desarrollamos apps web y móviles que no solo funcionan perfectamente, sino que también generan valor real para tu negocio y tus usuarios.",
     features: [
-      "Desarrollo nativo iOS y Android",
-      "Apps híbridas con React Native",
+      "Aplicaciones web progresivas (PWA)",
+      "Apps móviles iOS y Android",
+      "Funcionalidades offline",
       "Diseño UX/UI optimizado",
-      "Integración con sistemas backend",
-      "Notificaciones push personalizadas",
-      "Analytics y métricas de uso",
-      "Actualizaciones y mantenimiento",
-      "Publicación en App Store y Google Play"
+      "Push notifications",
+      "Integración con backend",
+      "Analytics integrado",
+      "Publicación en stores y web"
     ],
-    technologies: ["React Native", "Swift", "Kotlin", "Firebase", "Expo", "Stripe", "OneSignal"],
+    technologies: ["React Native", "PWA", "Swift", "Kotlin", "Firebase", "Expo", "Stripe", "OneSignal"],
     benefits: [
       "Mayor engagement con clientes",
-      "Acceso directo a usuarios",
-      "Aumento en ventas móviles",
-      "Branding y presencia digital"
+      "Acceso directo desde cualquier dispositivo",
+      "Aumento en ventas digitales",
+      "Presencia digital completa"
     ],
-    pricing: "Desde $2.000.000",
-    duration: "6-12 semanas",
-    industry: "Retail, Salud, Fintech, Servicios",
+    pricing: "Desde $200.000",
+    duration: "4-12 semanas",
+    industry: "Retail, Salud, Fintech, Servicios, SaaS",
     color: "bg-purple-500"
   },
   {
@@ -125,14 +126,14 @@ const services = [
     description: "Transformamos tus datos en insights accionables. Implementamos soluciones de Business Intelligence y analytics avanzados para decisiones estratégicas informadas.",
     detailedDescription: "Los datos son el activo más valioso de tu empresa. Convertimos información compleja en dashboards claros y reportes automatizados que impulsan la toma de decisiones estratégicas.",
     features: [
-      "Dashboards interactivos personalizados",
-      "Reportes automatizados y programados",
-      "KPIs y métricas personalizadas",
-      "Predicción de tendencias con IA",
-      "Integración de múltiples fuentes de datos",
+      "Dashboards simples y avanzados",
+      "Reportes mensuales y automatizados",
+      "KPIs básicos y personalizados",
+      "Predicciones con IA",
+      "Integración de datos",
       "Visualizaciones avanzadas",
-      "Alertas y notificaciones inteligentes",
-      "Capacitación y soporte técnico"
+      "Alertas inteligentes",
+      "Capacitación y soporte"
     ],
     technologies: ["Power BI", "Tableau", "Python", "SQL Server", "Azure", "Google Analytics", "Machine Learning"],
     benefits: [
@@ -141,7 +142,7 @@ const services = [
       "Optimización de procesos",
       "ROI medible y transparente"
     ],
-    pricing: "Desde $800.000/mes",
+    pricing: "Desde $150.000/mes",
     duration: "2-4 meses",
     industry: "Manufactura, Retail, Servicios, Salud",
     color: "bg-orange-500"
@@ -154,14 +155,14 @@ const services = [
     description: "Protegemos tu infraestructura digital con auditorías de seguridad completas e implementación de mejores prácticas. Garantizamos la seguridad de tus datos y sistemas.",
     detailedDescription: "En un mundo digital, la seguridad no es opcional. Implementamos medidas de protección integrales que protegen tu empresa, tus clientes y tu reputación contra amenazas cibernéticas.",
     features: [
-      "Auditorías de seguridad completas",
-      "Protección de datos y privacidad",
-      "Backup automático y recuperación",
-      "Monitoreo 24/7 de amenazas",
-      "Cumplimiento normativo (Ley de Protección de Datos)",
+      "Auditoría de seguridad",
+      "Protección esencial y completa",
+      "Backup automático",
+      "Monitoreo 24/7",
+      "Cumplimiento normativo",
       "Capacitación en seguridad",
-      "Plan de respuesta a incidentes",
-      "Certificaciones de seguridad"
+      "Plan de respuesta",
+      "Certificaciones"
     ],
     technologies: ["ISO 27001", "GDPR", "Firewall", "Antivirus", "Encryption", "VPN", "SIEM"],
     benefits: [
@@ -170,7 +171,7 @@ const services = [
       "Confianza de clientes",
       "Reducción de riesgos"
     ],
-    pricing: "Desde $600.000/mes",
+    pricing: "Desde $100.000/mes",
     duration: "1-3 meses",
     industry: "Todas las industrias",
     color: "bg-red-500"
@@ -183,14 +184,14 @@ const services = [
     description: "Optimizamos tus procesos empresariales con automatización inteligente. Reducimos costos operacionales y aumentamos la eficiencia con soluciones RPA y workflows automatizados.",
     detailedDescription: "La automatización es la clave para escalar tu negocio eficientemente. Implementamos soluciones que eliminan tareas repetitivas, reducen errores y liberan tiempo para actividades estratégicas.",
     features: [
-      "Workflows automatizados personalizados",
-      "Integración de sistemas y APIs",
-      "Chatbots inteligentes y asistencia virtual",
+      "Workflows simples y complejos",
+      "Automatización básica y avanzada",
+      "Integración de sistemas",
+      "Chatbots inteligentes",
       "RPA (Robotic Process Automation)",
       "Automatización de marketing",
-      "Gestión documental automatizada",
-      "Reportes y alertas automáticas",
-      "Capacitación y soporte continuo"
+      "Reportes automáticos",
+      "Capacitación y soporte"
     ],
     technologies: ["Zapier", "Microsoft Power Automate", "UiPath", "Chatbots", "CRM", "Email Marketing"],
     benefits: [
@@ -199,7 +200,7 @@ const services = [
       "Eliminación de errores manuales",
       "Escalabilidad mejorada"
     ],
-    pricing: "Desde $700.000/mes",
+    pricing: "Desde $120.000/mes",
     duration: "2-4 meses",
     industry: "Servicios, Manufactura, Retail, Fintech",
     color: "bg-yellow-500"
@@ -349,6 +350,30 @@ export default function ServiciosPage() {
               </AnimatedSection>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Interactive Pricing Section */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection delay={0.1}>
+            <div className="text-center mb-16">
+              <Badge variant="secondary" className="mb-6">
+                Precios Transparentes
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Encuentra el Plan <span className="text-secondary">Perfecto</span> para tu Empresa
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Selecciona tu servicio y ajusta el plan según tus necesidades. Precios accesibles 
+                para empresas que están comenzando su transformación digital.
+              </p>
+            </div>
+          </AnimatedSection>
+          
+          <AnimatedSection delay={0.2}>
+            <ServicePricingSlider />
+          </AnimatedSection>
         </div>
       </section>
 

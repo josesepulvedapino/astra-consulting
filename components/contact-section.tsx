@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -104,6 +104,81 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [isPreFilled, setIsPreFilled] = useState(false)
+
+  // Función para detectar datos del servicio seleccionado y pre-llenar formulario
+  useEffect(() => {
+    const handlePreFill = () => {
+      try {
+        const selectedService = localStorage.getItem('selectedService')
+        
+        if (selectedService) {
+          const serviceData = JSON.parse(selectedService)
+          console.log('Pre-llenando formulario con datos de localStorage:', serviceData)
+          
+          const formattedPrice = new Intl.NumberFormat('es-CL', {
+            style: 'currency',
+            currency: 'CLP',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          }).format(parseInt(serviceData.price))
+
+          // Mapeo de nombres completos a valores del select
+          const serviceMapping: { [key: string]: string } = {
+            'SEO y Marketing Digital': 'seo',
+            'Desarrollo Web': 'desarrollo',
+            'Aplicaciones': 'mobile',
+            'Análisis de Datos': 'analytics',
+            'Ciberseguridad': 'seguridad',
+            'Automatización': 'automatizacion'
+          }
+
+          const serviceValue = serviceMapping[serviceData.service] || 'consultoria'
+
+          const messageText = `Hola, me interesa el servicio de ${serviceData.service} - Plan ${serviceData.plan} (${formattedPrice}).
+
+${serviceData.description}
+
+Por favor, contáctenme para más información sobre este plan.`
+
+          setFormData(prev => ({
+            ...prev,
+            service: serviceValue,
+            message: messageText
+          }))
+          
+          setIsPreFilled(true)
+
+          // Trackear interés en servicio específico
+          trackEvent('service_interest_from_pricing', {
+            service: serviceData.service,
+            plan: serviceData.plan,
+            price: serviceData.price,
+            event_category: 'lead_generation'
+          })
+
+          // Limpiar localStorage después de usar
+          localStorage.removeItem('selectedService')
+
+          // Scroll al formulario
+          setTimeout(() => {
+            const contactSection = document.getElementById('contacto')
+            if (contactSection) {
+              contactSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              })
+            }
+          }, 500)
+        }
+      } catch (error) {
+        console.error('Error al procesar datos del servicio:', error)
+      }
+    }
+
+    // Ejecutar cuando el componente se monte
+    handlePreFill()
+  }, [trackEvent])
 
   const formatPhoneNumber = (value: string): string => {
     // Remover todo excepto números
@@ -323,6 +398,13 @@ export function ContactSection() {
               <Card className="border-border hover:shadow-lg transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-foreground">Solicita tu Consulta Gratuita</CardTitle>
+                  {isPreFilled && (
+                    <div className="mt-2 p-3 bg-secondary/10 border border-secondary/20 rounded-lg">
+                      <p className="text-sm text-secondary font-medium">
+                        Formulario pre-llenado con tu solicitud de servicio
+                      </p>
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
