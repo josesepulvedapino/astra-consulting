@@ -21,11 +21,11 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: "https://astraconsulting.cl",
     title: "Astra Consulting - Consultoría Informática y SEO",
-    description: "Transformamos empresas chilenas con tecnología de vanguardia y estrategias SEO efectivas. Más de 150 empresas transformadas.",
+    description: "Transformamos empresas chilenas con tecnología de vanguardia y estrategias SEO efectivas. Más de 15 empresas ya han multiplicado su crecimiento digital.",
     siteName: "Astra Consulting",
     images: [
       {
-        url: "https://astraconsulting.cl/og-image.jpg",
+        url: "https://astraconsulting.cl/og-image.png",
         width: 1200,
         height: 630,
         alt: "Astra Consulting - Consultoría Informática y SEO"
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Astra Consulting - Consultoría Informática y SEO",
-    description: "Transformamos empresas chilenas con tecnología de vanguardia y estrategias SEO efectivas.",
-    images: ["https://astraconsulting.cl/og-image.jpg"]
+    description: "Transformamos empresas chilenas con tecnología de vanguardia y estrategias SEO efectivas. Más de 15 empresas ya han multiplicado su crecimiento digital.",
+    images: ["https://astraconsulting.cl/og-image.png"]
   },
   alternates: {
     canonical: "https://astraconsulting.cl",
