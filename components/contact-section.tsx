@@ -180,6 +180,20 @@ Por favor, contáctenme para más información sobre este plan.`
     handlePreFill()
   }, [trackEvent])
 
+  // Función para convertir valores del select a nombres en español
+  const getServiceName = (serviceValue: string): string => {
+    const serviceNames: { [key: string]: string } = {
+      'seo': 'SEO y Marketing Digital',
+      'desarrollo': 'Desarrollo Web',
+      'mobile': 'Aplicaciones',
+      'analytics': 'Análisis de Datos',
+      'seguridad': 'Ciberseguridad',
+      'automatizacion': 'Automatización',
+      'consultoria': 'Consultoría General'
+    }
+    return serviceNames[serviceValue] || 'Consultoría General'
+  }
+
   const formatPhoneNumber = (value: string): string => {
     // Remover todo excepto números
     const numbers = value.replace(/\D/g, '')
@@ -257,21 +271,29 @@ Por favor, contáctenme para más información sobre este plan.`
     setErrorMessage('')
 
     try {
-      const response = await fetch('https://formspree.io/f/mgvljpnr', {
+      // Enviar con Web3Forms usando JSON
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
-          _subject: `Nueva consulta de ${formData.company} - ${formData.service}`,
-          _replyto: formData.email,
-          _cc: 'contacto@astraconsulting.cl',
-          _next: window.location.href + '?success=true'
+          access_key: '8641d8dc-4b9a-4e7b-b3a6-f76eb68ee209',
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          subject: `Nueva consulta de ${formData.name} de ${formData.company} para ${getServiceName(formData.service)}`,
+          to: 'contacto@astraconsulting.cl',
         }),
       })
 
-      if (response.ok) {
+      const result = await response.json()
+      
+      if (result.success) {
         setSubmitStatus('success')
         
         // Trackear conversión exitosa
@@ -293,11 +315,20 @@ Por favor, contáctenme para más información sobre este plan.`
         })
         setErrors({})
       } else {
-        const errorData = await response.json()
-        setErrorMessage(errorData.error || 'Error al enviar el formulario')
+        // Manejar error de Web3Forms
+        const errorMessage = result.message || 'Error al enviar el formulario'
+        
+        console.error('Web3Forms Error:', {
+          success: result.success,
+          message: result.message,
+          result: result
+        })
+        
+        setErrorMessage(errorMessage)
         setSubmitStatus('error')
       }
     } catch (error) {
+      console.error('Form submission error:', error)
       setErrorMessage('Error de conexión. Por favor, inténtalo de nuevo.')
       setSubmitStatus('error')
     } finally {
@@ -565,7 +596,6 @@ Por favor, contáctenme para más información sobre este plan.`
                     {submitStatus === 'success' && (
                       <div className="p-4 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary text-center">
                         <div className="flex items-center justify-center space-x-2">
-                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
                           <span className="font-medium">¡Mensaje enviado exitosamente! Te contactaremos pronto.</span>
                         </div>
                       </div>
