@@ -54,6 +54,11 @@ export function Header() {
     }
   }, [isMenuOpen])
 
+  // Función para cerrar el menú móvil
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false)
+  }
+
   // Funciones de tracking para botones CTA
   const handleConsultaClick = () => {
     trackEvent('cta_click', {
@@ -61,6 +66,7 @@ export function Header() {
       button_location: 'header',
       event_category: 'engagement'
     })
+    closeMobileMenu()
   }
 
   const handleComenzarClick = () => {
@@ -69,6 +75,7 @@ export function Header() {
       button_location: 'header',
       event_category: 'engagement'
     })
+    closeMobileMenu()
   }
 
   return (
@@ -103,7 +110,7 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 flex-1 justify-center" role="navigation" aria-label="Navegación principal">
+          <nav className="hidden lg:flex items-center space-x-8 flex-1 justify-center" role="navigation" aria-label="Navegación principal">
             <a 
               href="/servicios" 
               className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
@@ -154,7 +161,7 @@ export function Header() {
             </a>
           </nav>
 
-          <div className="hidden md:flex items-center space-x-4 flex-shrink-0">
+          <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
             <Link href="/#contacto">
               <Button 
                 variant="outline" 
@@ -180,7 +187,7 @@ export function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex-shrink-0">
+          <div className="lg:hidden flex-shrink-0">
             <button 
               className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md p-1" 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -196,7 +203,7 @@ export function Header() {
         {/* Mobile Navigation */}
         <div 
           id="mobile-menu" 
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isMenuOpen 
               ? 'max-h-96 opacity-100 py-4 border-t border-border' 
               : 'max-h-0 opacity-0 py-0 border-t-0'
@@ -209,6 +216,7 @@ export function Header() {
           <nav className="flex flex-col space-y-4" role="navigation" aria-label="Navegación móvil">
               <a 
                 href="/servicios" 
+                onClick={closeMobileMenu}
                 className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
                   isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
                 } ${
@@ -223,6 +231,7 @@ export function Header() {
               </a>
               <a 
                 href="/casos-exito" 
+                onClick={closeMobileMenu}
                 className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
                   isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
                 } ${
@@ -237,6 +246,7 @@ export function Header() {
               </a>
               <a 
                 href="/sobre-nosotros" 
+                onClick={closeMobileMenu}
                 className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
                   isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
                 } ${

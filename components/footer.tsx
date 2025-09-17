@@ -127,7 +127,7 @@ export function Footer() {
         <div className="border-t border-primary-foreground/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-primary-foreground/60">
-              © 2024 Astra Consulting. Todos los derechos reservados.
+              © 2025 Astra Consulting. Todos los derechos reservados.
             </div>
             <div className="flex space-x-6 text-sm">
               <Link href="/politica-privacidad" className="text-primary-foreground/60 hover:text-secondary transition-colors">
