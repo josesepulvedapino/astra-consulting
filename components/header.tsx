@@ -155,7 +155,7 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4 flex-shrink-0">
-            <Link href="#contacto">
+            <Link href="/#contacto">
               <Button 
                 variant="outline" 
                 size="sm" 
