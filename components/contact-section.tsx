@@ -563,14 +563,20 @@ Por favor, contáctenme para más información sobre este plan.`
 
                     {/* Status Messages */}
                     {submitStatus === 'success' && (
-                      <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200 text-center">
-                        ✅ ¡Mensaje enviado exitosamente! Te contactaremos pronto.
+                      <div className="p-4 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary text-center">
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                          <span className="font-medium">¡Mensaje enviado exitosamente! Te contactaremos pronto.</span>
+                        </div>
                       </div>
                     )}
                     
                     {submitStatus === 'error' && (
-                      <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200 text-center">
-                        ❌ {errorMessage || 'Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos directamente.'}
+                      <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-center">
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="w-2 h-2 bg-destructive rounded-full"></div>
+                          <span className="font-medium">{errorMessage || 'Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos directamente.'}</span>
+                        </div>
                       </div>
                     )}
 
