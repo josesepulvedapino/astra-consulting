@@ -111,11 +111,11 @@ export function HeroSection() {
 
           <AnimatedSection delay={0.4}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <TrendingUp className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
-                <div className="text-left">
+                <div className="text-center md:text-left flex-1">
                   <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">
                     <AnimatedCounter value={300} suffix="%" />
                   </div>
@@ -124,11 +124,11 @@ export function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
 
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <Shield className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
-                <div className="text-left">
+                <div className="text-center md:text-left flex-1">
                   <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">
                     <AnimatedCounter value={15} suffix="+" />
                   </div>
@@ -137,11 +137,11 @@ export function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
 
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <Zap className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out animate-heartbeat" />
                 </div>
-                <div className="text-left">
+                <div className="text-center md:text-left flex-1">
                   <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">24/7</div>
                   <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Soporte Técnico</div>
                 </div>
