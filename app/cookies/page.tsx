@@ -14,6 +14,15 @@ export const metadata = {
     description: "Conoce cómo utilizamos las cookies para mejorar tu experiencia.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Política de Cookies - Astra Consulting",
+    description: "Conoce cómo utilizamos las cookies para mejorar tu experiencia.",
+    images: ["https://astraconsulting.cl/og-image.png"]
+  },
+  alternates: {
+    canonical: "https://astraconsulting.cl/cookies",
+  },
 }
 
 export default function CookiesPage() {

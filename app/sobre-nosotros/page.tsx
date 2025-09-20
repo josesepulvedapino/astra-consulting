@@ -20,13 +20,22 @@ import {
 } from "lucide-react"
 
 export const metadata = {
-  title: "Sobre Nosotros - Astra Consulting | Consultoría Informática Especializada",
+  title: "Sobre Nosotros - Astra Consulting | Equipo Especializado",
   description: "Conoce a Astra Consulting, líderes en transformación digital y consultoría informática. Más de 15 empresas transformadas con 98% de satisfacción.",
-  keywords: "sobre nosotros, Astra Consulting, consultoría informática, transformación digital, equipo técnico, experiencia",
+  keywords: "equipo técnico, experiencia profesional, certificaciones, trayectoria empresa, consultores especializados, sobre nosotros",
   openGraph: {
     title: "Sobre Nosotros - Astra Consulting",
     description: "Conoce a Astra Consulting, líderes en transformación digital y consultoría informática.",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sobre Nosotros - Astra Consulting",
+    description: "Conoce a Astra Consulting, líderes en transformación digital y consultoría informática.",
+    images: ["https://astraconsulting.cl/og-image.png"]
+  },
+  alternates: {
+    canonical: "https://astraconsulting.cl/sobre-nosotros",
   },
 }
 

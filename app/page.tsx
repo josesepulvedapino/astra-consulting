@@ -9,7 +9,7 @@ import { FAQSection } from "@/components/faq-section"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Astra Consulting - Consultoría Informática y SEO | Transformación Digital",
+  title: "Astra Consulting - SEO y Transformación Digital Chile",
   description: "Consultoría informática líder en Chile. Especialistas en SEO, desarrollo web y transformación digital. Resultados garantizados.",
   keywords: "consultoría informática Chile, SEO Chile, transformación digital, desarrollo web Chile, tecnología empresarial, marketing digital Chile, automatización procesos, ciberseguridad Chile",
   authors: [{ name: "Astra Consulting" }],

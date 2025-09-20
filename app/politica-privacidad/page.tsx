@@ -6,13 +6,22 @@ import { Badge } from "@/components/ui/badge"
 import { Shield, Eye, Lock, Database, UserCheck, FileText } from "lucide-react"
 
 export const metadata = {
-  title: "Política de Privacidad - Astra Consulting | Protección de Datos",
+  title: "Política de Privacidad - Astra Consulting",
   description: "Política de privacidad de Astra Consulting. Conoce cómo protegemos y manejamos tus datos personales de acuerdo con la legislación chilena.",
   keywords: "política de privacidad, protección de datos, privacidad, Astra Consulting, datos personales",
   openGraph: {
     title: "Política de Privacidad - Astra Consulting",
     description: "Conoce cómo protegemos y manejamos tus datos personales.",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Política de Privacidad - Astra Consulting",
+    description: "Conoce cómo protegemos y manejamos tus datos personales.",
+    images: ["https://astraconsulting.cl/og-image.png"]
+  },
+  alternates: {
+    canonical: "https://astraconsulting.cl/politica-privacidad",
   },
 }
 

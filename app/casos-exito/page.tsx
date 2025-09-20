@@ -25,13 +25,22 @@ import {
 } from "lucide-react"
 
 export const metadata = {
-  title: "Casos de Éxito - Astra Consulting | Portfolio de Proyectos Exitosos",
+  title: "Casos de Éxito - Astra Consulting | Proyectos Exitosos",
   description: "Descubre cómo Astra Consulting ha transformado más de 15 empresas. Casos de éxito reales con métricas verificables y testimonios de clientes.",
-  keywords: "casos de éxito, portfolio, proyectos exitosos, transformación digital, resultados, testimonios, Astra Consulting",
+  keywords: "portfolio proyectos, casos de éxito, resultados verificables, testimonios clientes, transformación digital exitosa, proyectos exitosos",
   openGraph: {
     title: "Casos de Éxito - Astra Consulting",
     description: "Descubre cómo Astra Consulting ha transformado más de 15 empresas con resultados medibles.",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Casos de Éxito - Astra Consulting",
+    description: "Descubre cómo Astra Consulting ha transformado más de 15 empresas con resultados medibles.",
+    images: ["https://astraconsulting.cl/og-image.png"]
+  },
+  alternates: {
+    canonical: "https://astraconsulting.cl/casos-exito",
   },
 }
 

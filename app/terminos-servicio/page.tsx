@@ -14,6 +14,15 @@ export const metadata = {
     description: "Conoce las condiciones de uso de nuestros servicios de consultoría informática.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Términos de Servicio - Astra Consulting",
+    description: "Conoce las condiciones de uso de nuestros servicios de consultoría informática.",
+    images: ["https://astraconsulting.cl/og-image.png"]
+  },
+  alternates: {
+    canonical: "https://astraconsulting.cl/terminos-servicio",
+  },
 }
 
 export default function TerminosServicioPage() {

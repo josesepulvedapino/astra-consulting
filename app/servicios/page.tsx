@@ -20,13 +20,22 @@ import {
 } from "lucide-react"
 
 export const metadata = {
-  title: "Servicios - Astra Consulting | Consultoría Informática y Transformación Digital",
-  description: "Descubre todos nuestros servicios: SEO, desarrollo web, apps móviles, análisis de datos, ciberseguridad y automatización. Soluciones tecnológicas para empresas chilenas.",
-  keywords: "servicios tecnológicos, SEO Chile, desarrollo web, aplicaciones móviles, análisis de datos, ciberseguridad, automatización, consultoría informática",
+  title: "Servicios - Astra Consulting | Consultoría Informática Chile",
+  description: "Astra Consulting ofrece servicios de SEO, desarrollo web, apps móviles, análisis de datos y ciberseguridad para empresas chilenas. Resultados garantizados.",
+  keywords: "servicios tecnológicos Chile, desarrollo web, aplicaciones móviles, análisis de datos, ciberseguridad, automatización, consultoría informática",
   openGraph: {
     title: "Servicios - Astra Consulting",
     description: "Soluciones tecnológicas completas para transformar tu empresa digitalmente.",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Servicios - Astra Consulting",
+    description: "Soluciones tecnológicas completas para transformar tu empresa digitalmente.",
+    images: ["https://astraconsulting.cl/og-image.png"]
+  },
+  alternates: {
+    canonical: "https://astraconsulting.cl/servicios",
   },
 }
 
