@@ -167,7 +167,7 @@ export function Header() {
                 variant="outline" 
                 size="sm" 
                 onClick={handleConsultaClick}
-                className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20"
+                className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
                 aria-label="Solicitar consulta gratuita"
               >
                 <span className="relative z-10">Consulta Gratuita</span>
@@ -177,7 +177,7 @@ export function Header() {
             <Link href="/servicios">
               <Button 
                 onClick={handleComenzarClick}
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20"
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
                 aria-label="Comenzar transformación digital ahora"
               >
                 <span className="relative z-10">Comenzar Ahora</span>
@@ -270,7 +270,7 @@ export function Header() {
                       variant="outline" 
                       size="sm" 
                       onClick={handleConsultaClick}
-                      className="hover:scale-105 hover:bg-accent hover:text-accent-foreground transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
+                      className="hover:scale-105 hover:bg-accent hover:text-accent-foreground transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
                       aria-label="Solicitar consulta gratuita desde móvil"
                     >
                       Consulta Gratuita
@@ -279,7 +279,7 @@ export function Header() {
                   <Link href="/servicios">
                     <Button 
                       onClick={handleComenzarClick}
-                      className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
+                      className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
                       aria-label="Comenzar transformación digital ahora desde móvil"
                     >
                       Comenzar Ahora

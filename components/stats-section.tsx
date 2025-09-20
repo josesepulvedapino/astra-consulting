@@ -88,13 +88,19 @@ export function StatsSection() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/#contacto">
-                  <button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                  <button 
+                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden min-h-[48px]"
+                    aria-label="Solicitar una consulta gratuita para transformar tu empresa"
+                  >
                     <span className="relative z-10">Solicitar Consulta Gratuita</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
                 </Link>
                 <Link href="/casos-exito">
-                  <button className="border border-border hover:bg-accent hover:text-accent-foreground text-foreground px-6 py-3 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                  <button 
+                    className="border border-border hover:bg-accent hover:text-accent-foreground text-foreground px-8 py-4 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden min-h-[48px]"
+                    aria-label="Ver casos de éxito y proyectos realizados por Astra Consulting"
+                  >
                     <span className="relative z-10">Ver Casos de Éxito</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
