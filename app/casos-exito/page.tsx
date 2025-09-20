@@ -167,24 +167,21 @@ export default function CasosExitoPage() {
             </div>
           </AnimatedSection>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {overallStats.map((stat, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
-                <Card className="group text-center hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-full flex flex-col bg-card/80 backdrop-blur-sm">
-                  <CardHeader className="flex-grow">
-                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4 group-hover:bg-secondary/20 transition-all duration-500 ease-out">
-                      <stat.icon className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
-                    </div>
-                    <CardTitle className="text-3xl md:text-4xl font-bold text-secondary group-hover:text-secondary transition-colors duration-500 ease-out">
+                <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-10 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
+                  <div className="bg-secondary/10 p-2 sm:p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                    <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+                  </div>
+                  <div className="text-center md:text-left flex-1">
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">
                       <AnimatedCounter value={parseFloat(stat.value.replace('%', '').replace('+', ''))} suffix={stat.value.includes('%') ? '%' : stat.value.includes('+') ? '+' : ''} />
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="font-semibold mb-2 group-hover:text-foreground transition-colors duration-500 ease-out">{stat.label}</p>
-                    <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">{stat.description}</p>
-                  </CardContent>
+                    </div>
+                    <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">{stat.label}</div>
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
-                </Card>
+                </div>
               </AnimatedSection>
             ))}
           </div>
@@ -344,36 +341,107 @@ export default function CasosExitoPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-secondary to-accent">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative overflow-hidden" style={{ backgroundColor: 'oklch(0.65 0.15 280)' }}>
+        {/* Enhanced Animated Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          
+          {/* Geometric shapes with morphing animation */}
+          <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
+               style={{ top: '5%', left: '10%', animationDelay: '0s' }} />
+          <div className="absolute w-24 h-24 bg-white/8 animate-morphing"
+               style={{ top: '15%', right: '15%', animationDelay: '2s' }} />
+          <div className="absolute w-16 h-16 bg-white/6 animate-morphing"
+               style={{ top: '60%', left: '5%', animationDelay: '4s' }} />
+          <div className="absolute w-20 h-20 bg-white/12 rounded-full animate-morphing"
+               style={{ top: '70%', right: '10%', animationDelay: '6s' }} />
+          
+          {/* Floating particles */}
+          <div className="absolute w-3 h-3 bg-white/30 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '20%', left: '20%', animationDelay: '1s' }} />
+          <div className="absolute w-2 h-2 bg-white/25 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '30%', right: '25%', animationDelay: '2s' }} />
+          <div className="absolute w-2.5 h-2.5 bg-white/35 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '40%', right: '30%', animationDelay: '3s' }} />
+          <div className="absolute w-2.5 h-2.5 bg-white/35 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '50%', left: '50%', animationDelay: '4s' }} />
+          <div className="absolute w-2 h-2 bg-white/25 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '60%', right: '15%', animationDelay: '5s' }} />
+          <div className="absolute w-4 h-4 bg-white/40 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '80%', left: '70%', animationDelay: '6s' }} />
+          
+          {/* Code elements */}
+          <div className="absolute text-lg font-mono text-white/30 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '12%', left: '12%', animationDelay: '2s' }}>
+            &lt;/&gt;
+          </div>
+          
+          <div className="absolute text-lg font-mono text-white/35 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '25%', right: '18%', animationDelay: '4s' }}>
+            { }
+          </div>
+          
+          <div className="absolute text-sm font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '45%', left: '8%', animationDelay: '6s' }}>
+            SUCCESS
+          </div>
+          
+          <div className="absolute text-sm font-mono text-white/30 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '75%', right: '8%', animationDelay: '8s' }}>
+            ASTRA
+          </div>
+          
+          {/* ASTRA branding elements */}
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '8%', right: '8%', animationDelay: '1s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '35%', left: '3%', animationDelay: '3s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '55%', right: '5%', animationDelay: '5s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '85%', left: '15%', animationDelay: '7s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '18%', left: '50%', animationDelay: '9s' }}>
+            ASTRA
+          </div>
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <AnimatedSection delay={0.1}>
             <div className="text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                ¿Quieres Ser Nuestro Próximo Caso de Éxito?
+                ¿Listo para Transformar tu Empresa?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Únete a las más de 15 empresas que ya han transformado su negocio con Astra Consulting
+                Únete a las más de 15 empresas que ya confían en Astra Consulting para su transformación digital
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/#contacto">
                   <Button 
                     size="lg" 
-                    variant="secondary"
-                    className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                    className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
                   >
-                    <span className="relative z-10">Consulta Gratuita</span>
-                    <ArrowRight className="ml-2 h-4 w-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    Consulta Gratuita
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/servicios">
+                <Link href="/casos-exito">
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="bg-transparent border-white text-white hover:bg-white hover:text-secondary hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                    className="bg-transparent border-white text-white hover:bg-white hover:text-secondary transition-all duration-200 cursor-pointer"
                   >
-                    <span className="relative z-10">Ver Todos los Servicios</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    Ver Casos de Éxito
                   </Button>
                 </Link>
               </div>

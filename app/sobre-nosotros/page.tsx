@@ -166,52 +166,52 @@ export default function SobreNosotrosPage() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1}>
-              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
-                  <Users className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-10 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
+                <div className="bg-secondary/10 p-2 sm:p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Users className="h-6 w-6 sm:h-8 sm:w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">15+</div>
-                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Empresas y Proyectos</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">+15</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Empresas y Proyectos</div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
-              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
-                  <Calendar className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-10 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
+                <div className="bg-secondary/10 p-2 sm:p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">3+</div>
-                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Años de Experiencia</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">3+</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Años de Experiencia</div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={0.3}>
-              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
-                  <Star className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-10 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
+                <div className="bg-secondary/10 p-2 sm:p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Star className="h-6 w-6 sm:h-8 sm:w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">98%</div>
-                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Satisfacción Cliente</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">98%</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Satisfacción Cliente</div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={0.4}>
-              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
-                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
-                  <Shield className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-10 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
+                <div className="bg-secondary/10 p-2 sm:p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">24/7</div>
-                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Soporte Técnico</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">24/7</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Soporte Técnico</div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
@@ -373,11 +373,9 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-secondary via-accent to-primary relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden" style={{ backgroundColor: 'oklch(0.65 0.15 280)' }}>
         {/* Enhanced Animated Background Elements */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Static gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-accent/15 to-primary/20 opacity-60" />
           
           {/* Geometric shapes with morphing animation */}
           <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
@@ -466,8 +464,7 @@ export default function SobreNosotrosPage() {
                 <Link href="/#contacto">
                   <Button 
                     size="lg" 
-                    variant="secondary"
-                    className="hover:scale-105 transition-all duration-200 cursor-pointer"
+                    className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
                   >
                     Consulta Gratuita
                     <ArrowRight className="ml-2 h-4 w-4" />

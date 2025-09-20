@@ -414,11 +414,9 @@ export default function ServiciosPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-secondary via-accent to-primary relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden" style={{ backgroundColor: 'oklch(0.65 0.15 280)' }}>
         {/* Enhanced Animated Background Elements */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Static gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-accent/15 to-primary/20 opacity-60" />
           
           {/* Geometric shapes with morphing animation */}
           <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
@@ -501,19 +499,16 @@ export default function ServiciosPage() {
                 ¿Listo para Transformar tu Empresa?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Descubre cómo nuestros servicios pueden impulsar el crecimiento de tu negocio. 
-                Agenda una consulta gratuita y recibe un análisis personalizado.
+                Únete a las más de 15 empresas que ya confían en Astra Consulting para su transformación digital
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/#contacto">
                   <Button 
                     size="lg" 
-                    variant="secondary"
-                    className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                    className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
                   >
-                    <span className="relative z-10">Consulta Gratuita</span>
-                    <ArrowRight className="ml-2 h-4 w-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    Consulta Gratuita
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link href="/casos-exito">
