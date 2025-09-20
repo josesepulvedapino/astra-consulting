@@ -109,7 +109,8 @@ export function CookieBanner() {
               <Button 
                 onClick={acceptAll}
                 size="sm"
-                className="bg-secondary hover:bg-secondary/90 text-xs h-8 cursor-pointer"
+                className="bg-secondary hover:bg-secondary/90 text-xs h-10 px-4 cursor-pointer"
+                aria-label="Aceptar todas las cookies"
               >
                 Aceptar
               </Button>
@@ -117,7 +118,8 @@ export function CookieBanner() {
                 onClick={acceptNecessary}
                 variant="outline"
                 size="sm"
-                className="text-xs h-8 cursor-pointer"
+                className="text-xs h-10 px-4 cursor-pointer"
+                aria-label="Aceptar solo cookies necesarias"
               >
                 Solo Necesarias
               </Button>
@@ -125,9 +127,10 @@ export function CookieBanner() {
                 onClick={() => setShowSettings(true)}
                 variant="ghost"
                 size="sm"
-                className="text-xs h-8 p-2 cursor-pointer"
+                className="text-xs h-10 w-10 p-0 cursor-pointer"
+                aria-label="Abrir configuración de cookies"
               >
-                <Settings className="h-3 w-3" />
+                <Settings className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -140,9 +143,10 @@ export function CookieBanner() {
                 variant="ghost" 
                 size="sm"
                 onClick={() => setShowSettings(false)}
-                className="h-6 w-6 p-0 cursor-pointer"
+                className="h-8 w-8 p-0 cursor-pointer"
+                aria-label="Cerrar configuración de cookies"
               >
-                <X className="h-3 w-3" />
+                <X className="h-4 w-4" />
               </Button>
             </div>
             
@@ -172,7 +176,9 @@ export function CookieBanner() {
                   variant={preferences.analytics ? "default" : "outline"}
                   size="sm"
                   onClick={() => togglePreference('analytics')}
-                  className="h-6 px-2 text-xs cursor-pointer"
+                  className="h-8 px-3 text-xs cursor-pointer min-w-[60px]"
+                  aria-label={`${preferences.analytics ? 'Desactivar' : 'Activar'} cookies analíticas`}
+                  aria-pressed={preferences.analytics}
                 >
                   {preferences.analytics ? "ON" : "OFF"}
                 </Button>
@@ -190,7 +196,9 @@ export function CookieBanner() {
                   variant={preferences.marketing ? "default" : "outline"}
                   size="sm"
                   onClick={() => togglePreference('marketing')}
-                  className="h-6 px-2 text-xs cursor-pointer"
+                  className="h-8 px-3 text-xs cursor-pointer min-w-[60px]"
+                  aria-label={`${preferences.marketing ? 'Desactivar' : 'Activar'} cookies de marketing`}
+                  aria-pressed={preferences.marketing}
                 >
                   {preferences.marketing ? "ON" : "OFF"}
                 </Button>
@@ -201,7 +209,8 @@ export function CookieBanner() {
               <Button 
                 onClick={savePreferences}
                 size="sm"
-                className="bg-secondary hover:bg-secondary/90 text-xs h-8 cursor-pointer"
+                className="bg-secondary hover:bg-secondary/90 text-xs h-10 px-4 cursor-pointer"
+                aria-label="Guardar configuración de cookies"
               >
                 Guardar
               </Button>
@@ -209,7 +218,8 @@ export function CookieBanner() {
                 onClick={acceptAll}
                 variant="outline"
                 size="sm"
-                className="text-xs h-8 cursor-pointer"
+                className="text-xs h-10 px-4 cursor-pointer"
+                aria-label="Aceptar todas las cookies"
               >
                 Aceptar Todas
               </Button>

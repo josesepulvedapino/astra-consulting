@@ -164,7 +164,9 @@ export function CookieSettings() {
                 variant={preferences.analytics ? "default" : "outline"}
                 size="sm"
                 onClick={() => togglePreference('analytics')}
-                className="w-full sm:w-auto min-w-[80px] cursor-pointer"
+                className="w-full sm:w-auto min-w-[100px] h-10 cursor-pointer"
+                aria-label={`${preferences.analytics ? 'Desactivar' : 'Activar'} cookies analíticas`}
+                aria-pressed={preferences.analytics}
               >
                 {preferences.analytics ? "Activa" : "Inactiva"}
               </Button>
@@ -191,7 +193,9 @@ export function CookieSettings() {
                 variant={preferences.marketing ? "default" : "outline"}
                 size="sm"
                 onClick={() => togglePreference('marketing')}
-                className="w-full sm:w-auto min-w-[80px] cursor-pointer"
+                className="w-full sm:w-auto min-w-[100px] h-10 cursor-pointer"
+                aria-label={`${preferences.marketing ? 'Desactivar' : 'Activar'} cookies de marketing`}
+                aria-pressed={preferences.marketing}
               >
                 {preferences.marketing ? "Activa" : "Inactiva"}
               </Button>
@@ -208,6 +212,7 @@ export function CookieSettings() {
           className={`bg-secondary hover:bg-secondary/90 transition-all duration-300 cursor-pointer ${
             isAcceptingAll ? 'animate-pulse' : ''
           }`}
+          aria-label="Aceptar todas las cookies incluyendo analíticas y marketing"
         >
           <Check className={`h-4 w-4 mr-2 transition-transform duration-300 ${
             isAcceptingAll ? 'animate-spin' : ''
@@ -221,6 +226,7 @@ export function CookieSettings() {
           className={`transition-all duration-300 cursor-pointer ${
             isAcceptingNecessary ? 'animate-pulse' : ''
           }`}
+          aria-label="Aceptar solo cookies necesarias para el funcionamiento del sitio"
         >
           <X className={`h-4 w-4 mr-2 transition-transform duration-300 ${
             isAcceptingNecessary ? 'animate-spin' : ''
