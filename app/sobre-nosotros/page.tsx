@@ -166,7 +166,7 @@ export default function SobreNosotrosPage() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1}>
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
                 <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <Users className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
@@ -179,7 +179,7 @@ export default function SobreNosotrosPage() {
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
                 <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <Calendar className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
@@ -192,7 +192,7 @@ export default function SobreNosotrosPage() {
             </AnimatedSection>
             
             <AnimatedSection delay={0.3}>
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
                 <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <Star className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
@@ -205,7 +205,7 @@ export default function SobreNosotrosPage() {
             </AnimatedSection>
             
             <AnimatedSection delay={0.4}>
-              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+              <div className="group flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 bg-card/80 backdrop-blur-sm py-8 px-6 md:p-6 rounded-xl hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-[140px] md:h-[120px]">
                 <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                   <Shield className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                 </div>
@@ -225,10 +225,10 @@ export default function SobreNosotrosPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedSection delay={0.1}>
-              <Card className="group h-full hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
+              <Card className="group h-full hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-4">
-                    <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                    <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                       <Target className="h-6 w-6 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
                     <CardTitle className="text-2xl group-hover:text-secondary transition-colors duration-500 ease-out">Nuestra Misión</CardTitle>
@@ -246,10 +246,10 @@ export default function SobreNosotrosPage() {
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
-              <Card className="group h-full hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
+              <Card className="group h-full hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-4">
-                    <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                    <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
                       <TrendingUp className="h-6 w-6 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
                     <CardTitle className="text-2xl group-hover:text-secondary transition-colors duration-500 ease-out">Nuestra Visión</CardTitle>
@@ -284,7 +284,7 @@ export default function SobreNosotrosPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
-                <Card className="group h-full text-center hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
+                <Card className="group h-full text-center hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                   <CardHeader>
                     <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4 group-hover:bg-secondary/20 transition-all duration-500 ease-out">
                       <value.icon className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
@@ -354,7 +354,7 @@ export default function SobreNosotrosPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
-                <Card className="group h-full text-center hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
+                <Card className="group h-full text-center hover-lift transition-all duration-500 ease-out border-0 md:border md:border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                   <CardHeader>
                     <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4 group-hover:bg-secondary/20 transition-all duration-500 ease-out">
                       <achievement.icon className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
