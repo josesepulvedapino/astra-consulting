@@ -165,9 +165,8 @@ export function Header() {
             <Link href="/#contacto">
               <Button 
                 variant="outline" 
-                size="sm" 
                 onClick={handleConsultaClick}
-                className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
+                className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px] h-auto"
                 aria-label="Solicitar consulta gratuita"
               >
                 <span className="relative z-10">Consulta Gratuita</span>

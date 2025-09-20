@@ -87,18 +87,18 @@ export function StatsSection() {
                 resultados con nuestras soluciones tecnológicas.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/#contacto">
+                <Link href="/#contacto" className="flex-1">
                   <button 
-                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden min-h-[48px]"
+                    className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden min-h-[48px]"
                     aria-label="Solicitar una consulta gratuita para transformar tu empresa"
                   >
                     <span className="relative z-10">Solicitar Consulta Gratuita</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
                 </Link>
-                <Link href="/casos-exito">
+                <Link href="/casos-exito" className="flex-1">
                   <button 
-                    className="border border-border hover:bg-accent hover:text-accent-foreground text-foreground px-8 py-4 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden min-h-[48px]"
+                    className="w-full border border-border hover:bg-accent hover:text-accent-foreground text-foreground px-8 py-4 rounded-lg font-semibold hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden min-h-[48px]"
                     aria-label="Ver casos de éxito y proyectos realizados por Astra Consulting"
                   >
                     <span className="relative z-10">Ver Casos de Éxito</span>
