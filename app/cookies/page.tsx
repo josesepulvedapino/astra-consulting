@@ -3,7 +3,9 @@ import { Footer } from "@/components/footer"
 import { AnimatedSection } from "@/components/animated-section"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Cookie, Settings, Shield, Eye, Database, AlertCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Cookie, Settings, Shield, Eye, Database, AlertCircle, Check, X } from "lucide-react"
+import { CookieSettings } from "@/components/cookie-settings"
 
 export const metadata = {
   title: "Política de Cookies - Astra Consulting | Uso de Cookies",
@@ -212,6 +214,24 @@ export default function CookiesPage() {
                       </p>
                     </div>
                   </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+
+            {/* Configuración Interactiva de Cookies */}
+            <AnimatedSection delay={0.45}>
+              <Card className="border-border hover:border-secondary/50 transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <Settings className="h-6 w-6 text-secondary" />
+                    Configurar Preferencias de Cookies
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground mb-6">
+                    Gestiona tus preferencias de cookies directamente desde aquí. Los cambios se aplicarán inmediatamente.
+                  </p>
+                  <CookieSettings />
                 </CardContent>
               </Card>
             </AnimatedSection>

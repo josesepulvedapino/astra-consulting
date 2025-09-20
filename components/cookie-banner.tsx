@@ -109,7 +109,7 @@ export function CookieBanner() {
               <Button 
                 onClick={acceptAll}
                 size="sm"
-                className="bg-secondary hover:bg-secondary/90 text-xs h-8"
+                className="bg-secondary hover:bg-secondary/90 text-xs h-8 cursor-pointer"
               >
                 Aceptar
               </Button>
@@ -117,7 +117,7 @@ export function CookieBanner() {
                 onClick={acceptNecessary}
                 variant="outline"
                 size="sm"
-                className="text-xs h-8"
+                className="text-xs h-8 cursor-pointer"
               >
                 Solo Necesarias
               </Button>
@@ -125,7 +125,7 @@ export function CookieBanner() {
                 onClick={() => setShowSettings(true)}
                 variant="ghost"
                 size="sm"
-                className="text-xs h-8 p-2"
+                className="text-xs h-8 p-2 cursor-pointer"
               >
                 <Settings className="h-3 w-3" />
               </Button>
@@ -140,7 +140,7 @@ export function CookieBanner() {
                 variant="ghost" 
                 size="sm"
                 onClick={() => setShowSettings(false)}
-                className="h-6 w-6 p-0"
+                className="h-6 w-6 p-0 cursor-pointer"
               >
                 <X className="h-3 w-3" />
               </Button>
@@ -172,7 +172,7 @@ export function CookieBanner() {
                   variant={preferences.analytics ? "default" : "outline"}
                   size="sm"
                   onClick={() => togglePreference('analytics')}
-                  className="h-6 px-2 text-xs"
+                  className="h-6 px-2 text-xs cursor-pointer"
                 >
                   {preferences.analytics ? "ON" : "OFF"}
                 </Button>
@@ -190,7 +190,7 @@ export function CookieBanner() {
                   variant={preferences.marketing ? "default" : "outline"}
                   size="sm"
                   onClick={() => togglePreference('marketing')}
-                  className="h-6 px-2 text-xs"
+                  className="h-6 px-2 text-xs cursor-pointer"
                 >
                   {preferences.marketing ? "ON" : "OFF"}
                 </Button>
@@ -201,7 +201,7 @@ export function CookieBanner() {
               <Button 
                 onClick={savePreferences}
                 size="sm"
-                className="bg-secondary hover:bg-secondary/90 text-xs h-8"
+                className="bg-secondary hover:bg-secondary/90 text-xs h-8 cursor-pointer"
               >
                 Guardar
               </Button>
@@ -209,7 +209,7 @@ export function CookieBanner() {
                 onClick={acceptAll}
                 variant="outline"
                 size="sm"
-                className="text-xs h-8"
+                className="text-xs h-8 cursor-pointer"
               >
                 Aceptar Todas
               </Button>
