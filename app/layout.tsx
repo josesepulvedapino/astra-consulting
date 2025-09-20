@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from "next/script"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CookieBanner } from "@/components/cookie-banner"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -128,6 +129,7 @@ export default function RootLayout({
           <Suspense fallback={null}>{children}</Suspense>
           <Analytics />
           <SpeedInsights />
+          <CookieBanner />
         </ThemeProvider>
         
         {/* Google Analytics */}
@@ -139,11 +141,19 @@ export default function RootLayout({
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            
+            // Configurar consentimiento por defecto (denegado hasta que el usuario acepte)
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied',
+              'wait_for_update': 2000
+            });
+            
             gtag('js', new Date());
             gtag('config', 'G-442GS7YYSG', {
               page_title: document.title,
               page_location: window.location.href,
-              send_page_view: true
+              send_page_view: false // No enviar automáticamente hasta que se dé consentimiento
             });
           `}
         </Script>
