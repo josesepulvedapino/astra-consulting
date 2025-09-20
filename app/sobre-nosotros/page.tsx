@@ -101,7 +101,34 @@ export default function SobreNosotrosPage() {
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-card relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle floating elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Geometric shapes with morphing animation - SOBRE NOSOTROS layout */}
+          <div className="absolute w-22 h-22 bg-secondary/15 rounded-full animate-morphing" 
+               style={{ top: '12%', left: '5%', animationDelay: '0s' }} />
+          <div className="absolute w-18 h-18 bg-accent/12 animate-morphing" 
+               style={{ top: '30%', right: '15%', animationDelay: '2s' }} />
+          <div className="absolute w-16 h-16 bg-secondary/18 rounded-full animate-morphing" 
+               style={{ top: '58%', left: '10%', animationDelay: '4s' }} />
+          
+          {/* ASTRA branding elements - SOBRE NOSOTROS unique positions */}
+          <div className="absolute text-xs font-mono text-secondary/20 dark:text-secondary/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '10%', right: '12%', animationDelay: '1s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-secondary/25 dark:text-secondary/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '48%', left: '2%', animationDelay: '3s' }}>
+            TEAM
+          </div>
+          
+          <div className="absolute text-xs font-mono text-accent/20 dark:text-accent/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '78%', right: '10%', animationDelay: '5s' }}>
+            LEADERS
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection delay={0.1}>
               <Badge variant="secondary" className="mb-6">
@@ -139,30 +166,54 @@ export default function SobreNosotrosPage() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1}>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">15+</div>
-                <div className="text-sm text-muted-foreground">Empresas y Proyectos</div>
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Users className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+                </div>
+                <div className="text-center md:text-left flex-1">
+                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">15+</div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Empresas y Proyectos</div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">3+</div>
-                <div className="text-sm text-muted-foreground">Años de Experiencia</div>
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Calendar className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+                </div>
+                <div className="text-center md:text-left flex-1">
+                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">3+</div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Años de Experiencia</div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={0.3}>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">98%</div>
-                <div className="text-sm text-muted-foreground">Satisfacción Cliente</div>
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Star className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+                </div>
+                <div className="text-center md:text-left flex-1">
+                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">98%</div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Satisfacción Cliente</div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
             
             <AnimatedSection delay={0.4}>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">24/7</div>
-                <div className="text-sm text-muted-foreground">Soporte Técnico</div>
+              <div className="group flex items-center justify-center space-x-4 bg-card/80 backdrop-blur-sm p-6 rounded-xl hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer min-h-[100px]">
+                <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out flex-shrink-0">
+                  <Shield className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
+                </div>
+                <div className="text-center md:text-left flex-1">
+                  <div className="text-3xl font-bold text-foreground group-hover:text-secondary transition-colors duration-500 ease-out">24/7</div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">Soporte Técnico</div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </div>
             </AnimatedSection>
           </div>
@@ -174,42 +225,44 @@ export default function SobreNosotrosPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedSection delay={0.1}>
-              <Card className="h-full">
+              <Card className="group h-full hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-4">
-                    <div className="bg-secondary/10 p-3 rounded-lg">
-                      <Target className="h-6 w-6 text-secondary" />
+                    <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                      <Target className="h-6 w-6 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
-                    <CardTitle className="text-2xl">Nuestra Misión</CardTitle>
+                    <CardTitle className="text-2xl group-hover:text-secondary transition-colors duration-500 ease-out">Nuestra Misión</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-muted-foreground text-lg leading-relaxed group-hover:text-foreground transition-colors duration-500 ease-out">
                     Democratizar la tecnología de vanguardia para empresas chilenas, proporcionando soluciones 
                     digitales accesibles, escalables y rentables que impulsen el crecimiento y la competitividad 
                     en el mercado global.
                   </p>
                 </CardContent>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </Card>
             </AnimatedSection>
             
             <AnimatedSection delay={0.2}>
-              <Card className="h-full">
+              <Card className="group h-full hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-4">
-                    <div className="bg-secondary/10 p-3 rounded-lg">
-                      <TrendingUp className="h-6 w-6 text-secondary" />
+                    <div className="bg-secondary/10 p-3 rounded-lg group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                      <TrendingUp className="h-6 w-6 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
-                    <CardTitle className="text-2xl">Nuestra Visión</CardTitle>
+                    <CardTitle className="text-2xl group-hover:text-secondary transition-colors duration-500 ease-out">Nuestra Visión</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-muted-foreground text-lg leading-relaxed group-hover:text-foreground transition-colors duration-500 ease-out">
                     Ser el referente en transformación digital en Chile, reconocidos por nuestra innovación, 
                     excelencia técnica y compromiso con el éxito de nuestros clientes, contribuyendo al 
                     desarrollo tecnológico del país.
                   </p>
                 </CardContent>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
               </Card>
             </AnimatedSection>
           </div>
@@ -231,16 +284,17 @@ export default function SobreNosotrosPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
-                <Card className="h-full text-center hover:shadow-lg transition-all duration-300">
+                <Card className="group h-full text-center hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                   <CardHeader>
-                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4">
-                      <value.icon className="h-8 w-8 text-secondary" />
+                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4 group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                      <value.icon className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
-                    <CardTitle className="text-xl">{value.title}</CardTitle>
+                    <CardTitle className="text-xl group-hover:text-secondary transition-colors duration-500 ease-out">{value.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">{value.description}</p>
+                    <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">{value.description}</p>
                   </CardContent>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
                 </Card>
               </AnimatedSection>
             ))}
@@ -300,16 +354,17 @@ export default function SobreNosotrosPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
-                <Card className="h-full text-center hover:shadow-lg transition-all duration-300">
+                <Card className="group h-full text-center hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer bg-card/80 backdrop-blur-sm">
                   <CardHeader>
-                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4">
-                      <achievement.icon className="h-8 w-8 text-secondary" />
+                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4 group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                      <achievement.icon className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
-                    <CardTitle className="text-lg">{achievement.title}</CardTitle>
+                    <CardTitle className="text-lg group-hover:text-secondary transition-colors duration-500 ease-out">{achievement.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground text-sm">{achievement.description}</p>
+                    <p className="text-muted-foreground text-sm group-hover:text-foreground transition-colors duration-500 ease-out">{achievement.description}</p>
                   </CardContent>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
                 </Card>
               </AnimatedSection>
             ))}
@@ -318,8 +373,87 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-secondary to-accent">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-secondary via-accent to-primary relative overflow-hidden">
+        {/* Enhanced Animated Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Static gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-accent/15 to-primary/20 opacity-60" />
+          
+          {/* Geometric shapes with morphing animation */}
+          <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
+               style={{ top: '5%', left: '10%', animationDelay: '0s' }} />
+          <div className="absolute w-24 h-24 bg-white/8 animate-morphing" 
+               style={{ top: '15%', right: '15%', animationDelay: '2s' }} />
+          <div className="absolute w-20 h-20 bg-white/12 rounded-full animate-morphing" 
+               style={{ top: '60%', left: '5%', animationDelay: '4s' }} />
+          <div className="absolute w-28 h-28 bg-white/6 animate-morphing" 
+               style={{ top: '70%', right: '20%', animationDelay: '6s' }} />
+          
+          {/* Floating particles */}
+          <div className="absolute w-3 h-3 bg-white/40 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '10%', left: '15%', animationDelay: '0s' }} />
+          <div className="absolute w-4 h-4 bg-white/50 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '20%', right: '20%', animationDelay: '1s' }} />
+          <div className="absolute w-2 h-2 bg-white/30 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '30%', left: '25%', animationDelay: '2s' }} />
+          <div className="absolute w-3 h-3 bg-white/45 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '40%', right: '30%', animationDelay: '3s' }} />
+          <div className="absolute w-2.5 h-2.5 bg-white/35 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '50%', left: '50%', animationDelay: '4s' }} />
+          <div className="absolute w-2 h-2 bg-white/25 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '60%', right: '15%', animationDelay: '5s' }} />
+          <div className="absolute w-4 h-4 bg-white/40 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '80%', left: '70%', animationDelay: '6s' }} />
+          
+          {/* Code elements */}
+          <div className="absolute text-lg font-mono text-white/30 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '12%', left: '12%', animationDelay: '2s' }}>
+            &lt;/&gt;
+          </div>
+          
+          <div className="absolute text-lg font-mono text-white/35 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '25%', right: '18%', animationDelay: '4s' }}>
+            { }
+          </div>
+          
+          <div className="absolute text-sm font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '45%', left: '8%', animationDelay: '6s' }}>
+            TEAM
+          </div>
+          
+          <div className="absolute text-sm font-mono text-white/30 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '75%', right: '8%', animationDelay: '8s' }}>
+            ASTRA
+          </div>
+          
+          {/* ASTRA branding elements */}
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '8%', right: '8%', animationDelay: '1s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '35%', left: '3%', animationDelay: '3s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '55%', right: '5%', animationDelay: '5s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '85%', left: '15%', animationDelay: '7s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '18%', left: '50%', animationDelay: '9s' }}>
+            ASTRA
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <AnimatedSection delay={0.1}>
             <div className="text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">

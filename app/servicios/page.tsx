@@ -224,7 +224,34 @@ export default function ServiciosPage() {
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-card relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle floating elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Geometric shapes with morphing animation - SERVICIOS layout */}
+          <div className="absolute w-18 h-18 bg-secondary/15 rounded-full animate-morphing" 
+               style={{ top: '15%', left: '12%', animationDelay: '0s' }} />
+          <div className="absolute w-14 h-14 bg-accent/12 animate-morphing" 
+               style={{ top: '35%', right: '8%', animationDelay: '2s' }} />
+          <div className="absolute w-10 h-10 bg-secondary/18 rounded-full animate-morphing" 
+               style={{ top: '65%', left: '8%', animationDelay: '4s' }} />
+          
+          {/* ASTRA branding elements - SERVICIOS unique positions */}
+          <div className="absolute text-xs font-mono text-secondary/20 dark:text-secondary/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '12%', right: '15%', animationDelay: '1s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-secondary/25 dark:text-secondary/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '50%', left: '5%', animationDelay: '3s' }}>
+            SERVICES
+          </div>
+          
+          <div className="absolute text-xs font-mono text-accent/20 dark:text-accent/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '80%', right: '12%', animationDelay: '5s' }}>
+            TECH
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection delay={0.1}>
               <Badge variant="secondary" className="mb-6">
@@ -343,7 +370,7 @@ export default function ServiciosPage() {
                           <div className="text-sm text-muted-foreground">{service.industry}</div>
                         </div>
                         
-                        <Link href="#contacto">
+                        <Link href="#pricing-slider">
                           <Button 
                             className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
                           >
@@ -363,7 +390,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Interactive Pricing Section */}
-      <section className="py-20 bg-card">
+      <section id="pricing-slider" className="py-20 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection delay={0.1}>
             <div className="text-center mb-16">
@@ -387,8 +414,87 @@ export default function ServiciosPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-secondary to-accent">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-secondary via-accent to-primary relative overflow-hidden">
+        {/* Enhanced Animated Background Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Static gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-accent/15 to-primary/20 opacity-60" />
+          
+          {/* Geometric shapes with morphing animation */}
+          <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
+               style={{ top: '5%', left: '10%', animationDelay: '0s' }} />
+          <div className="absolute w-24 h-24 bg-white/8 animate-morphing" 
+               style={{ top: '15%', right: '15%', animationDelay: '2s' }} />
+          <div className="absolute w-20 h-20 bg-white/12 rounded-full animate-morphing" 
+               style={{ top: '60%', left: '5%', animationDelay: '4s' }} />
+          <div className="absolute w-28 h-28 bg-white/6 animate-morphing" 
+               style={{ top: '70%', right: '20%', animationDelay: '6s' }} />
+          
+          {/* Floating particles */}
+          <div className="absolute w-3 h-3 bg-white/40 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '10%', left: '15%', animationDelay: '0s' }} />
+          <div className="absolute w-4 h-4 bg-white/50 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '20%', right: '20%', animationDelay: '1s' }} />
+          <div className="absolute w-2 h-2 bg-white/30 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '30%', left: '25%', animationDelay: '2s' }} />
+          <div className="absolute w-3 h-3 bg-white/45 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '40%', right: '30%', animationDelay: '3s' }} />
+          <div className="absolute w-2.5 h-2.5 bg-white/35 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '50%', left: '50%', animationDelay: '4s' }} />
+          <div className="absolute w-2 h-2 bg-white/25 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '60%', right: '15%', animationDelay: '5s' }} />
+          <div className="absolute w-4 h-4 bg-white/40 rounded-full animate-particle-float gpu-accelerated" 
+               style={{ top: '80%', left: '70%', animationDelay: '6s' }} />
+          
+          {/* Code elements */}
+          <div className="absolute text-lg font-mono text-white/30 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '12%', left: '12%', animationDelay: '2s' }}>
+            &lt;/&gt;
+          </div>
+          
+          <div className="absolute text-lg font-mono text-white/35 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '25%', right: '18%', animationDelay: '4s' }}>
+            { }
+          </div>
+          
+          <div className="absolute text-sm font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '45%', left: '8%', animationDelay: '6s' }}>
+            SEO
+          </div>
+          
+          <div className="absolute text-sm font-mono text-white/30 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '75%', right: '8%', animationDelay: '8s' }}>
+            DEV
+          </div>
+          
+          {/* ASTRA branding elements */}
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '8%', right: '8%', animationDelay: '1s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '35%', left: '3%', animationDelay: '3s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '55%', right: '5%', animationDelay: '5s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/25 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '85%', left: '15%', animationDelay: '7s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-white/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '18%', left: '50%', animationDelay: '9s' }}>
+            ASTRA
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <AnimatedSection delay={0.1}>
             <div className="text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">

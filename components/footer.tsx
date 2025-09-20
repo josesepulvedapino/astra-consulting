@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react"
+import { Mail, Phone, MapPin, Linkedin, Instagram } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
@@ -32,6 +32,15 @@ export function Footer() {
                 aria-label="Síguenos en LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://www.instagram.com/astraconsulting.cl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary-foreground/60 hover:text-secondary transition-colors"
+                aria-label="Síguenos en Instagram"
+              >
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>

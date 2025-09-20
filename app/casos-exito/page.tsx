@@ -104,7 +104,34 @@ export default function CasosExitoPage() {
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-card relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle floating elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Geometric shapes with morphing animation - CASOS EXITO layout */}
+          <div className="absolute w-16 h-16 bg-secondary/15 rounded-full animate-morphing" 
+               style={{ top: '8%', left: '15%', animationDelay: '0s' }} />
+          <div className="absolute w-20 h-20 bg-accent/12 animate-morphing" 
+               style={{ top: '25%', right: '10%', animationDelay: '2s' }} />
+          <div className="absolute w-14 h-14 bg-secondary/18 rounded-full animate-morphing" 
+               style={{ top: '55%', left: '3%', animationDelay: '4s' }} />
+          
+          {/* ASTRA branding elements - CASOS EXITO unique positions */}
+          <div className="absolute text-xs font-mono text-secondary/20 dark:text-secondary/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '5%', right: '5%', animationDelay: '1s' }}>
+            ASTRA
+          </div>
+          
+          <div className="absolute text-xs font-mono text-secondary/25 dark:text-secondary/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '40%', left: '8%', animationDelay: '3s' }}>
+            SUCCESS
+          </div>
+          
+          <div className="absolute text-xs font-mono text-accent/20 dark:text-accent/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+               style={{ top: '70%', right: '5%', animationDelay: '5s' }}>
+            RESULTS
+          </div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection delay={0.1}>
               <Badge variant="secondary" className="mb-6">
@@ -143,19 +170,20 @@ export default function CasosExitoPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {overallStats.map((stat, index) => (
               <AnimatedSection key={index} delay={0.1 + index * 0.1}>
-                <Card className="text-center hover:shadow-lg transition-all duration-300 cursor-pointer h-full flex flex-col">
+                <Card className="group text-center hover-lift transition-all duration-500 ease-out border border-border/50 hover:border-secondary/30 relative overflow-hidden cursor-pointer h-full flex flex-col bg-card/80 backdrop-blur-sm">
                   <CardHeader className="flex-grow">
-                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4">
-                      <stat.icon className="h-8 w-8 text-secondary" />
+                    <div className="bg-secondary/10 p-4 rounded-lg w-fit mx-auto mb-4 group-hover:bg-secondary/20 transition-all duration-500 ease-out">
+                      <stat.icon className="h-8 w-8 text-secondary group-hover:scale-105 transition-transform duration-500 ease-out" />
                     </div>
-                    <CardTitle className="text-3xl md:text-4xl font-bold text-secondary">
+                    <CardTitle className="text-3xl md:text-4xl font-bold text-secondary group-hover:text-secondary transition-colors duration-500 ease-out">
                       <AnimatedCounter value={parseFloat(stat.value.replace('%', '').replace('+', ''))} suffix={stat.value.includes('%') ? '%' : stat.value.includes('+') ? '+' : ''} />
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="font-semibold mb-2">{stat.label}</p>
-                    <p className="text-sm text-muted-foreground">{stat.description}</p>
+                    <p className="font-semibold mb-2 group-hover:text-foreground transition-colors duration-500 ease-out">{stat.label}</p>
+                    <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-500 ease-out">{stat.description}</p>
                   </CardContent>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
                 </Card>
               </AnimatedSection>
             ))}

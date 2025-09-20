@@ -69,6 +69,37 @@ export function HeroSection() {
           [ ]
         </div>
         
+        {/* ASTRA branding elements */}
+        <div className="absolute text-xs font-mono text-secondary/20 dark:text-secondary/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+             style={{ top: '8%', right: '8%', animationDelay: '1s' }}>
+          ASTRA
+        </div>
+        
+        <div className="absolute text-xs font-mono text-secondary/25 dark:text-secondary/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+             style={{ top: '35%', left: '3%', animationDelay: '3s' }}>
+          ASTRA
+        </div>
+        
+        <div className="absolute text-xs font-mono text-secondary/20 dark:text-secondary/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+             style={{ top: '85%', left: '15%', animationDelay: '7s' }}>
+          ASTRA
+        </div>
+        
+        {/* Service and growth elements */}
+        <div className="absolute text-xs font-mono text-accent/25 dark:text-accent/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+             style={{ top: '55%', right: '5%', animationDelay: '5s' }}>
+          SEO
+        </div>
+        
+        <div className="absolute text-xs font-mono text-accent/20 dark:text-accent/15 font-bold animate-floating-card hover-glow cursor-pointer" 
+             style={{ top: '18%', left: '50%', animationDelay: '9s' }}>
+          GROW
+        </div>
+        
+        <div className="absolute text-xs font-mono text-accent/25 dark:text-accent/20 font-bold animate-floating-card hover-glow cursor-pointer" 
+             style={{ top: '75%', right: '8%', animationDelay: '11s' }}>
+          CHILE
+        </div>
         
         {/* Enhanced wave pattern */}
         <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-secondary/40 to-transparent animate-wave" />
