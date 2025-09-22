@@ -89,8 +89,8 @@ export function CookieBanner() {
   if (!showBanner) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-50">
-      <Card className="p-4 shadow-xl border border-border/50 bg-card/95 backdrop-blur-md">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-50" role="dialog" aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
+      <Card className="p-4 shadow-xl border border-border/50 bg-card/95 backdrop-blur-md" role="document">
         {!showSettings ? (
           // Vista principal del banner - Compacta
           <div className="space-y-3">
@@ -98,10 +98,10 @@ export function CookieBanner() {
               <div className="bg-secondary/10 p-1.5 rounded-md">
                 <Cookie className="h-4 w-4 text-secondary" />
               </div>
-              <h3 className="font-medium text-sm">Cookies</h3>
+              <h3 id="cookie-title" className="font-medium text-sm">Cookies</h3>
             </div>
             
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p id="cookie-desc" className="text-xs text-muted-foreground leading-relaxed">
               Usamos cookies para mejorar tu experiencia. Puedes personalizar tus preferencias.
             </p>
             
@@ -138,7 +138,7 @@ export function CookieBanner() {
           // Vista de configuración detallada - Compacta
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="font-medium text-sm">Configuración</h3>
+              <h3 className="font-medium text-sm" id="cookie-settings-title">Configuración</h3>
               <Button 
                 variant="ghost" 
                 size="sm"

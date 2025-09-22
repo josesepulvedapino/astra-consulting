@@ -60,8 +60,8 @@ export default function RootLayout({
     "name": "Astra Consulting",
     "description": "Consultoría informática líder en Chile. Especialistas en SEO, desarrollo web y transformación digital. Resultados garantizados.",
     "url": "https://astraconsulting.cl",
-    "logo": "https://astraconsulting.cl/logo.png",
-    "image": "https://astraconsulting.cl/og-image.jpg",
+    "logo": "https://astraconsulting.cl/logo.svg",
+    "image": "https://astraconsulting.cl/og-image.png",
     "telephone": "+56-9-2687-3545",
     "email": "contacto@astraconsulting.cl",
     "address": {
@@ -120,6 +120,8 @@ export default function RootLayout({
         />
       </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        {/* Skip to content link for keyboard users */}
+        <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

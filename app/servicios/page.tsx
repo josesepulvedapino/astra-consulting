@@ -219,13 +219,14 @@ const services = [
 
 export default function ServiciosPage() {
   return (
-    <main className="min-h-screen">
+    <>
       <Header />
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-card relative overflow-hidden">
         {/* Subtle floating elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {/* Geometric shapes with morphing animation - SERVICIOS layout */}
           <div className="absolute w-18 h-18 bg-secondary/15 rounded-full animate-morphing" 
                style={{ top: '15%', left: '12%', animationDelay: '0s' }} />
@@ -251,7 +252,7 @@ export default function ServiciosPage() {
           </div>
         </div>
         
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection delay={0.1}>
               <Badge variant="secondary" className="mb-6">
@@ -273,11 +274,11 @@ export default function ServiciosPage() {
             </AnimatedSection>
           </div>
         </div>
-      </section>
+  </section>
 
 
       {/* Services Section */}
-      <section className="py-20 bg-background">
+  <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection delay={0.1}>
             <div className="text-center mb-16">
@@ -370,15 +371,16 @@ export default function ServiciosPage() {
                           <div className="text-sm text-muted-foreground">{service.industry}</div>
                         </div>
                         
-                        <Link href="#pricing-slider">
-                          <Button 
-                            className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
-                          >
+                        <Button 
+                          asChild
+                          className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                        >
+                          <Link href="#pricing-slider" aria-label="Ir a la sección de precios">
                             <span className="relative z-10">Solicitar Información</span>
                             <ArrowRight className="ml-2 h-4 w-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          </Button>
-                        </Link>
+                          </Link>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -390,7 +392,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Interactive Pricing Section */}
-      <section id="pricing-slider" className="py-20 bg-card">
+  <section id="pricing-slider" className="py-20 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection delay={0.1}>
             <div className="text-center mb-16">
@@ -416,7 +418,7 @@ export default function ServiciosPage() {
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden" style={{ backgroundColor: 'oklch(0.65 0.15 280)' }}>
         {/* Enhanced Animated Background Elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           
           {/* Geometric shapes with morphing animation */}
           <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
@@ -502,32 +504,35 @@ export default function ServiciosPage() {
                 Únete a las más de 15 empresas que ya confían en Astra Consulting para su transformación digital
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/#contacto">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
-                  >
+                <Button 
+                  asChild
+                  size="lg" 
+                  className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
+                >
+                  <Link href="/#contacto" aria-label="Solicitar una consulta gratuita">
                     Consulta Gratuita
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/casos-exito">
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    className="bg-transparent border-white text-white hover:bg-white hover:text-secondary hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
-                  >
+                  </Link>
+                </Button>
+                <Button 
+                  asChild
+                  size="lg" 
+                  variant="outline"
+                  className="bg-transparent border-white text-white hover:bg-white hover:text-secondary hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                >
+                  <Link href="/casos-exito" aria-label="Ver casos de éxito">
                     <span className="relative z-10">Ver Casos de Éxito</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

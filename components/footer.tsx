@@ -2,11 +2,13 @@
 
 import { Mail, Phone, MapPin, Linkedin, Instagram } from "lucide-react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function Footer() {
+  const pathname = usePathname()
   
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-primary text-primary-foreground" role="contentinfo" aria-label="Pie de página de Astra Consulting">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -139,13 +141,13 @@ export function Footer() {
               © 2025 Astra Consulting. Todos los derechos reservados.
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link href="/politica-privacidad" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              <Link href="/politica-privacidad" className="text-primary-foreground/60 hover:text-secondary transition-colors" aria-current={pathname === '/politica-privacidad' ? 'page' : undefined}>
                 Política de Privacidad
               </Link>
-              <Link href="/terminos-servicio" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              <Link href="/terminos-servicio" className="text-primary-foreground/60 hover:text-secondary transition-colors" aria-current={pathname === '/terminos-servicio' ? 'page' : undefined}>
                 Términos de Servicio
               </Link>
-              <Link href="/cookies" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              <Link href="/cookies" className="text-primary-foreground/60 hover:text-secondary transition-colors" aria-current={pathname === '/cookies' ? 'page' : undefined}>
                 Cookies
               </Link>
             </div>

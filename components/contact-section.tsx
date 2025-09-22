@@ -336,11 +336,11 @@ Por favor, contáctenme para más información sobre este plan.`
   }
 
   return (
-    <section id="contacto" className="py-20 bg-card">
+    <section id="contacto" className="py-20 bg-card" role="region" aria-labelledby="contacto-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-balance mb-4">
+            <h2 id="contacto-heading" className="text-3xl md:text-4xl font-bold text-balance mb-4">
               Comienza tu <span className="text-secondary">Transformación Digital</span> Hoy
             </h2>
             <p className="text-xl text-muted-foreground text-pretty max-w-2xl mx-auto">
@@ -437,7 +437,7 @@ Por favor, contáctenme para más información sobre este plan.`
                   )}
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6" aria-describedby="form-status" noValidate>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -453,9 +453,11 @@ Por favor, contáctenme para más información sobre este plan.`
                             errors.name ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
                           }`}
                           placeholder="Tu nombre completo"
+                          aria-invalid={!!errors.name}
+                          aria-describedby={errors.name ? 'error-name' : undefined}
                         />
                         {errors.name && (
-                          <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                          <p id="error-name" className="text-red-500 text-xs mt-1">{errors.name}</p>
                         )}
                       </div>
                       <div>
@@ -472,9 +474,11 @@ Por favor, contáctenme para más información sobre este plan.`
                             errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
                           }`}
                           placeholder="tu@empresa.cl"
+                          aria-invalid={!!errors.email}
+                          aria-describedby={errors.email ? 'error-email' : undefined}
                         />
                         {errors.email && (
-                          <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                          <p id="error-email" className="text-red-500 text-xs mt-1">{errors.email}</p>
                         )}
                       </div>
                     </div>
@@ -494,9 +498,11 @@ Por favor, contáctenme para más información sobre este plan.`
                             errors.company ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
                           }`}
                           placeholder="Nombre de tu empresa"
+                          aria-invalid={!!errors.company}
+                          aria-describedby={errors.company ? 'error-company' : undefined}
                         />
                         {errors.company && (
-                          <p className="text-red-500 text-xs mt-1">{errors.company}</p>
+                          <p id="error-company" className="text-red-500 text-xs mt-1">{errors.company}</p>
                         )}
                       </div>
                       <div>
@@ -514,9 +520,11 @@ Por favor, contáctenme para más información sobre este plan.`
                           }`}
                           placeholder="+56 9 1234 5678"
                           maxLength={15}
+                          aria-invalid={!!errors.phone}
+                          aria-describedby={errors.phone ? 'error-phone' : undefined}
                         />
                         {errors.phone && (
-                          <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                          <p id="error-phone" className="text-red-500 text-xs mt-1">{errors.phone}</p>
                         )}
                       </div>
                     </div>
@@ -534,6 +542,8 @@ Por favor, contáctenme para más información sobre este plan.`
                           className={`custom-select custom-select-arrow ${
                             errors.service ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
                           }`}
+                          aria-invalid={!!errors.service}
+                          aria-describedby={errors.service ? 'error-service' : undefined}
                         >
                           <option value="">Selecciona un servicio</option>
                           <option value="seo">SEO y Marketing Digital</option>
@@ -549,7 +559,7 @@ Por favor, contáctenme para más información sobre este plan.`
                         <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                       </div>
                       {errors.service && (
-                        <p className="text-red-500 text-xs mt-1">{errors.service}</p>
+                        <p id="error-service" className="text-red-500 text-xs mt-1">{errors.service}</p>
                       )}
                     </div>
 
@@ -567,9 +577,11 @@ Por favor, contáctenme para más información sobre este plan.`
                           errors.message ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''
                         }`}
                         placeholder="Describe brevemente tu proyecto, objetivos y cómo podemos ayudarte..."
+                        aria-invalid={!!errors.message}
+                        aria-describedby={errors.message ? 'error-message' : undefined}
                       />
                       {errors.message && (
-                        <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+                        <p id="error-message" className="text-red-500 text-xs mt-1">{errors.message}</p>
                       )}
                       <div className="flex justify-between items-center mt-1">
                         <span className="text-xs text-muted-foreground">
@@ -592,8 +604,9 @@ Por favor, contáctenme para más información sobre este plan.`
                     </Button>
 
                     {/* Status Messages */}
+                    <div id="form-status" aria-live="polite" className="sr-only"></div>
                     {submitStatus === 'success' && (
-                      <div className="p-4 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary text-center">
+                      <div className="p-4 bg-secondary/10 border border-secondary/20 rounded-lg text-secondary text-center" role="status">
                         <div className="flex items-center justify-center space-x-2">
                           <span className="font-medium">¡Mensaje enviado exitosamente! Te contactaremos pronto.</span>
                         </div>
@@ -601,7 +614,7 @@ Por favor, contáctenme para más información sobre este plan.`
                     )}
                     
                     {submitStatus === 'error' && (
-                      <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-center">
+                      <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-center" role="alert">
                         <div className="flex items-center justify-center space-x-2">
                           <div className="w-2 h-2 bg-destructive rounded-full"></div>
                           <span className="font-medium">{errorMessage || 'Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos directamente.'}</span>

@@ -27,8 +27,9 @@ export const metadata = {
 
 export default function PoliticaPrivacidadPage() {
   return (
-    <main className="min-h-screen">
+    <>
       <Header />
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-card">
@@ -262,7 +263,8 @@ export default function PoliticaPrivacidadPage() {
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

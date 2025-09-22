@@ -35,12 +35,12 @@ export default function Error({
             <RefreshCw className="h-4 w-4" />
             Intentar de nuevo
           </Button>
-          <Link href="/">
-            <Button variant="outline" className="flex items-center gap-2">
+          <Button asChild variant="outline" className="flex items-center gap-2">
+            <Link href="/" aria-label="Ir al inicio">
               <Home className="h-4 w-4" />
               Ir al Inicio
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     </div>

@@ -90,7 +90,7 @@ export function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 min-h-[4rem] header-container" style={{ contain: 'layout' }}>
           <div className="flex-shrink-0">
-            <a 
+            <Link 
               href="/" 
               className="flex items-center hover:opacity-80 transition-opacity cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-lg"
               aria-label="Astra Consulting - Ir al inicio"
@@ -106,7 +106,7 @@ export function Header() {
                   decoding="sync"
                 />
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -119,6 +119,7 @@ export function Header() {
                   : 'text-foreground hover:text-secondary hover:font-semibold'
               }`}
               aria-label="Ver nuestros servicios de consultoría informática"
+              aria-current={isActive('/servicios') ? 'page' : undefined}
             >
               Servicios
               <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
@@ -135,6 +136,7 @@ export function Header() {
                   : 'text-foreground hover:text-secondary hover:font-semibold'
               }`}
               aria-label="Ver casos de éxito y testimonios de clientes"
+              aria-current={isActive('/casos-exito') ? 'page' : undefined}
             >
               Casos de Éxito
               <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
@@ -151,6 +153,7 @@ export function Header() {
                   : 'text-foreground hover:text-secondary hover:font-semibold'
               }`}
               aria-label="Conoce más sobre Astra Consulting"
+              aria-current={isActive('/sobre-nosotros') ? 'page' : undefined}
             >
               Sobre Nosotros
               <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
@@ -162,27 +165,29 @@ export function Header() {
           </nav>
 
           <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
-            <Link href="/#contacto">
-              <Button 
-                variant="outline" 
-                onClick={handleConsultaClick}
-                className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px] h-auto"
-                aria-label="Solicitar consulta gratuita"
-              >
+            <Button 
+              asChild
+              variant="outline" 
+              onClick={handleConsultaClick}
+              className="hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px] h-auto"
+              aria-label="Solicitar consulta gratuita"
+            >
+              <Link href="/#contacto">
                 <span className="relative z-10">Consulta Gratuita</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
-            </Link>
-            <Link href="/servicios">
-              <Button 
-                onClick={handleComenzarClick}
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
-                aria-label="Comenzar transformación digital ahora"
-              >
+              </Link>
+            </Button>
+            <Button 
+              asChild
+              onClick={handleComenzarClick}
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
+              aria-label="Comenzar transformación digital ahora"
+            >
+              <Link href="/servicios">
                 <span className="relative z-10">Comenzar Ahora</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -225,6 +230,7 @@ export function Header() {
                 }`}
                 style={{ transitionDelay: isMenuOpen ? '0.1s' : '0s' }}
                 aria-label="Ver nuestros servicios de consultoría informática"
+                aria-current={isActive('/servicios') ? 'page' : undefined}
               >
                 Servicios
               </a>
@@ -240,6 +246,7 @@ export function Header() {
                 }`}
                 style={{ transitionDelay: isMenuOpen ? '0.2s' : '0s' }}
                 aria-label="Ver casos de éxito y testimonios de clientes"
+                aria-current={isActive('/casos-exito') ? 'page' : undefined}
               >
                 Casos de Éxito
               </a>
@@ -255,6 +262,7 @@ export function Header() {
                 }`}
                 style={{ transitionDelay: isMenuOpen ? '0.3s' : '0s' }}
                 aria-label="Conoce más sobre Astra Consulting"
+                aria-current={isActive('/sobre-nosotros') ? 'page' : undefined}
               >
                 Sobre Nosotros
               </a>
@@ -264,26 +272,24 @@ export function Header() {
               style={{ transitionDelay: isMenuOpen ? '0.4s' : '0s' }}
               >
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/#contacto">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={handleConsultaClick}
-                      className="hover:scale-105 hover:bg-accent hover:text-accent-foreground transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
-                      aria-label="Solicitar consulta gratuita desde móvil"
-                    >
-                      Consulta Gratuita
-                    </Button>
-                  </Link>
-                  <Link href="/servicios">
-                    <Button 
-                      onClick={handleComenzarClick}
-                      className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
-                      aria-label="Comenzar transformación digital ahora desde móvil"
-                    >
-                      Comenzar Ahora
-                    </Button>
-                  </Link>
+                  <Button 
+                    asChild
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleConsultaClick}
+                    className="hover:scale-105 hover:bg-accent hover:text-accent-foreground transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
+                    aria-label="Solicitar consulta gratuita desde móvil"
+                  >
+                    <Link href="/#contacto">Consulta Gratuita</Link>
+                  </Button>
+                  <Button 
+                    asChild
+                    onClick={handleComenzarClick}
+                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 transition-all duration-200 hover:shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 px-6 py-3 min-h-[44px]"
+                    aria-label="Comenzar transformación digital ahora desde móvil"
+                  >
+                    <Link href="/servicios">Comenzar Ahora</Link>
+                  </Button>
                 </div>
               </div>
             </nav>

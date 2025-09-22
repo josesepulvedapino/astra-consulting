@@ -19,12 +19,12 @@ export default function NotFound() {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/">
-            <Button className="flex items-center gap-2">
+          <Button asChild className="flex items-center gap-2">
+            <Link href="/" aria-label="Ir al inicio">
               <Home className="h-4 w-4" />
               Ir al Inicio
-            </Button>
-          </Link>
+            </Link>
+          </Button>
           <Button 
             variant="outline" 
             onClick={() => window.history.back()}

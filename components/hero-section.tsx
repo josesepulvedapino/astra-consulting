@@ -8,7 +8,7 @@ export function HeroSection() {
   return (
     <section className="pt-24 pb-20 md:pb-32 lg:pb-40 bg-gradient-to-br from-background via-background to-card relative overflow-hidden min-h-[80vh] md:min-h-[90vh] lg:min-h-[95vh]">
       {/* Enhanced Animated Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+  <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         {/* Static gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 via-accent/5 to-secondary/10 opacity-50" />
         
@@ -125,18 +125,18 @@ export function HeroSection() {
 
           <AnimatedSection delay={0.3}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <Link href="#contacto">
-                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden">
+              <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                <Link href="#contacto" aria-label="Solicitar un análisis gratuito">
                   <span className="relative z-10">Análisis Gratuito</span>
                   <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
-                </Button>
-              </Link>
-              <Link href="/casos-exito">
-                <Button size="lg" variant="outline" className="hover-scale hover-glow transition-all duration-300 cursor-pointer">
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="hover-scale hover-glow transition-all duration-300 cursor-pointer">
+                <Link href="/casos-exito" aria-label="Ver casos de éxito">
                   Ver Casos de Éxito
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </AnimatedSection>
 

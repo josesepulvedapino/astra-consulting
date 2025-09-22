@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://astraconsulting.cl/sitemap
+Sitemap: https://astraconsulting.cl/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

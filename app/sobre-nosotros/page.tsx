@@ -96,13 +96,14 @@ const achievements = [
 
 export default function SobreNosotrosPage() {
   return (
-    <main className="min-h-screen">
+    <>
       <Header />
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-background via-background to-card relative overflow-hidden">
         {/* Subtle floating elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+  <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {/* Geometric shapes with morphing animation - SOBRE NOSOTROS layout */}
           <div className="absolute w-22 h-22 bg-secondary/15 rounded-full animate-morphing" 
                style={{ top: '12%', left: '5%', animationDelay: '0s' }} />
@@ -375,7 +376,7 @@ export default function SobreNosotrosPage() {
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden" style={{ backgroundColor: 'oklch(0.65 0.15 280)' }}>
         {/* Enhanced Animated Background Elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           
           {/* Geometric shapes with morphing animation */}
           <div className="absolute w-32 h-32 bg-white/10 rounded-full animate-morphing" 
@@ -461,32 +462,35 @@ export default function SobreNosotrosPage() {
                 Únete a las más de 15 empresas que ya confían en Astra Consulting para su transformación digital
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/#contacto">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
-                  >
+                <Button 
+                  asChild
+                  size="lg" 
+                  className="bg-white text-gray-900 hover:bg-gray-100 hover:scale-105 transition-all duration-200 cursor-pointer"
+                >
+                  <Link href="/#contacto" aria-label="Solicitar una consulta gratuita">
                     Consulta Gratuita
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/casos-exito">
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    className="bg-transparent border-white text-white hover:bg-white hover:text-secondary transition-all duration-200 cursor-pointer"
-                  >
+                  </Link>
+                </Button>
+                <Button 
+                  asChild
+                  size="lg" 
+                  variant="outline"
+                  className="bg-transparent border-white text-white hover:bg-white hover:text-secondary transition-all duration-200 cursor-pointer"
+                >
+                  <Link href="/casos-exito" aria-label="Ver casos de éxito">
                     Ver Casos de Éxito
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
 
