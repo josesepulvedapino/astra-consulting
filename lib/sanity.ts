@@ -164,11 +164,15 @@ export const blogQueries = {
 
 // Funciones helper
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  return await sanityClient.fetch(blogQueries.allPosts)
+  return await sanityClient.fetch(blogQueries.allPosts, {}, {
+    next: { tags: ['blog-posts'] }
+  })
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  return await sanityClient.fetch(blogQueries.postBySlug(slug))
+  return await sanityClient.fetch(blogQueries.postBySlug(slug), {}, {
+    next: { tags: ['blog-posts'] }
+  })
 }
 
 export async function getRelatedPosts(currentId: string, categories: string[], limit: number = 3): Promise<BlogPost[]> {

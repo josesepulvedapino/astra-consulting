@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sanityClient } from '@/lib/sanity'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 // Función para mapear categorías de OpenAI a IDs de Sanity
 function getCategoryId(category: string): string {
@@ -96,15 +97,26 @@ export async function POST(request: NextRequest) {
         // Crear el post en Sanity
         const result = await sanityClient.create(postData)
         
-        console.log('Post created successfully:', result._id)
-        
-        return NextResponse.json({ 
-          message: 'Post created successfully from Make.com',
-          postId: result._id,
-          title: body.title,
-          slug: body.slug,
-          success: true
-        })
+            console.log('Post created successfully:', result._id)
+            
+            // Revalidar cache de Next.js
+            try {
+              revalidatePath('/blog')
+              revalidatePath('/blog/[slug]', 'page')
+              revalidatePath('/sitemap.xml')
+              revalidateTag('blog-posts')
+              console.log('Cache revalidated successfully')
+            } catch (revalidateError) {
+              console.error('Error revalidating cache:', revalidateError)
+            }
+            
+            return NextResponse.json({ 
+              message: 'Post created successfully from Make.com',
+              postId: result._id,
+              title: body.title,
+              slug: body.slug,
+              success: true
+            })
       } catch (sanityError: any) {
         console.error('Sanity error details:', {
           message: sanityError.message,
@@ -120,26 +132,48 @@ export async function POST(request: NextRequest) {
           details: sanityError.response || sanityError.body
         }, { status: 500 })
       }
-    }
-    
-    // Si llegamos aquí, no es una petición válida de Make.com
-    console.log('Invalid request from Make.com - missing required fields')
-    console.log('Received fields:', {
-      title: body.title,
-      slug: body.slug,
-      body: body.body ? 'present' : 'missing',
-      categories: body.categories,
-      tags: body.tags
-    })
-    
-    return NextResponse.json({ 
-      message: 'Invalid request - missing required fields (title, slug, body)',
-      received: {
-        title: body.title,
-        slug: body.slug,
-        body: body.body ? 'present' : 'missing'
-      }
-    }, { status: 400 })
+        }
+        
+        // Verificar si es una notificación de Sanity Studio (cambios en posts)
+        if (body._type === 'post' || (body.document && body.document._type === 'post')) {
+          console.log('Sanity Studio notification - revalidating cache')
+          
+          // Revalidar cache de Next.js
+          try {
+            revalidatePath('/blog')
+            revalidatePath('/blog/[slug]', 'page')
+            revalidatePath('/sitemap.xml')
+            revalidateTag('blog-posts')
+            console.log('Cache revalidated successfully from Sanity Studio')
+          } catch (revalidateError) {
+            console.error('Error revalidating cache:', revalidateError)
+          }
+          
+          return NextResponse.json({ 
+            message: 'Cache revalidated from Sanity Studio',
+            success: true
+          })
+        }
+        
+        // Si llegamos aquí, no es una petición válida
+        console.log('Invalid request - not from Make.com or Sanity Studio')
+        console.log('Received fields:', {
+          title: body.title,
+          slug: body.slug,
+          body: body.body ? 'present' : 'missing',
+          _type: body._type,
+          document: body.document
+        })
+        
+        return NextResponse.json({ 
+          message: 'Invalid request - not recognized',
+          received: {
+            title: body.title,
+            slug: body.slug,
+            body: body.body ? 'present' : 'missing',
+            _type: body._type
+          }
+        }, { status: 400 })
 
 
   } catch (error) {
