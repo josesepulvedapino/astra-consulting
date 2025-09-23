@@ -28,8 +28,8 @@ export async function POST(request: NextRequest) {
       .replace(/\r/g, '\\r')  // Escapar retornos de carro
       .replace(/\t/g, '\\t')  // Escapar tabulaciones
       .replace(/\f/g, '\\f')  // Escapar avance de página
-      .replace(/\b/g, '\\b')  // Escapar backspace
       .replace(/\v/g, '\\v')  // Escapar tabulación vertical
+      // NO escapar \b porque rompe el JSON
     
     console.log('Cleaned body:', cleanedBody.substring(0, 500) + '...')
     
