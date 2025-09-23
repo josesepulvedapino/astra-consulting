@@ -149,11 +149,25 @@ export function BlogPost({ post }: BlogPostProps) {
                 Equipo de consultoría informática especializado en transformación digital, SEO y desarrollo de soluciones tecnológicas para empresas chilenas.
               </p>
               <div className="flex gap-3">
-                <Button asChild variant="outline" size="sm" className="hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 cursor-pointer">
-                  <Link href="/sobre-nosotros">Conocer más</Link>
+                <Button 
+                  asChild 
+                  size="sm" 
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                >
+                  <Link href="/sobre-nosotros">
+                    <span className="relative z-10">Conocer más</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Link>
                 </Button>
-                <Button asChild variant="outline" size="sm" className="hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 cursor-pointer">
-                  <Link href="/#contacto">Contactar</Link>
+                <Button 
+                  asChild 
+                  size="sm" 
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                >
+                  <Link href="/#contacto">
+                    <span className="relative z-10">Contactar</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Link>
                 </Button>
               </div>
             </div>

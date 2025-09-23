@@ -22,7 +22,7 @@ export function BlogCard({ post }: BlogCardProps) {
 
   return (
     <Link href={`/blog/${post.slug.current}`} className="block h-full">
-      <Card className="group hover-lift transition-all duration-500 ease-out border-border hover:border-secondary/50 h-full flex flex-col relative overflow-hidden bg-card/80 backdrop-blur-sm cursor-pointer">
+      <Card className="group hover-lift transition-all duration-500 ease-out border-border hover:border-secondary/50 h-full flex flex-col relative overflow-hidden bg-card/80 backdrop-blur-sm cursor-pointer pt-0">
         <div className="relative overflow-hidden">
           <Image
             src={post.mainImage ? urlFor(post.mainImage).width(400).height(250).url() : "/placeholder.jpg"}
@@ -88,11 +88,16 @@ export function BlogCard({ post }: BlogCardProps) {
             ))}
           </div>
 
-          {/* Read More Button */}
+          {/* Read More (semantic fix: no interactive element inside link) */}
           <div className="mt-auto">
-            <Button variant="outline" className="w-full hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 cursor-pointer group/btn relative overflow-hidden">
-              <span className="relative z-10">Leer más</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+            <Button
+              asChild
+              className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group/btn relative overflow-hidden"
+            >
+              <span>
+                <span className="relative z-10">Leer más</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+              </span>
             </Button>
           </div>
         </CardContent>

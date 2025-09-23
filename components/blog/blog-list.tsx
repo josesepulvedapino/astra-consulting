@@ -125,7 +125,7 @@ export function BlogList({ posts, allPosts = [] }: BlogListProps) {
                 Recibe nuestros artículos más recientes sobre tecnología, SEO y transformación digital directamente en tu correo.
               </p>
               <NewsletterForm 
-                showName={true}
+                showName={false}
                 buttonText="Suscribirse"
                 placeholder="Tu email"
                 className="max-w-md mx-auto"

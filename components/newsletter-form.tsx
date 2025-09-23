@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
 
@@ -13,7 +13,7 @@ interface NewsletterFormProps {
 
 export function NewsletterForm({ 
   className = "", 
-  showName = true, 
+  showName = false, 
   buttonText = "Suscribirse Gratis",
   placeholder = "Tu correo electrónico"
 }: NewsletterFormProps) {
@@ -22,6 +22,14 @@ export function NewsletterForm({
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (hideTimer.current) clearTimeout(hideTimer.current)
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -45,17 +53,30 @@ export function NewsletterForm({
         setName('')
         
         // Limpiar mensaje después de 5 segundos
-        setTimeout(() => {
+        if (hideTimer.current) clearTimeout(hideTimer.current)
+        hideTimer.current = setTimeout(() => {
           setMessage('')
           setIsSuccess(false)
         }, 5000)
       } else {
         setIsSuccess(false)
         setMessage(data.message)
+        // Auto-ocultar también errores
+        if (hideTimer.current) clearTimeout(hideTimer.current)
+        hideTimer.current = setTimeout(() => {
+          setMessage('')
+          setIsSuccess(false)
+        }, 5000)
       }
     } catch (error) {
       setIsSuccess(false)
       setMessage('Error de conexión. Inténtalo más tarde.')
+      // Auto-ocultar también errores
+      if (hideTimer.current) clearTimeout(hideTimer.current)
+      hideTimer.current = setTimeout(() => {
+        setMessage('')
+        setIsSuccess(false)
+      }, 5000)
     } finally {
       setLoading(false)
     }
@@ -100,18 +121,20 @@ export function NewsletterForm({
         </Button>
       </form>
 
-      {/* Alert de resultado */}
+      {/* Alert de resultado (auto-oculta y color secundario para éxito y error) */}
       {message && (
-        <div className={`mt-4 p-4 rounded-lg border transition-all duration-300 ${
-          isSuccess 
-            ? 'bg-secondary/10 border-secondary/30 text-secondary' 
-            : 'bg-destructive/10 border-destructive/30 text-destructive'
-        }`}>
+        <div
+          role="status"
+          aria-live="polite"
+          className={
+            'mt-4 p-4 rounded-lg border transition-all duration-300 bg-secondary/10 border-secondary/30 text-secondary'
+          }
+        >
           <div className="flex items-center gap-2">
             {isSuccess ? (
               <CheckCircle className="h-5 w-5 text-secondary" />
             ) : (
-              <XCircle className="h-5 w-5 text-destructive" />
+              <XCircle className="h-5 w-5 text-secondary" />
             )}
             <span className="text-sm font-medium">{message}</span>
           </div>
