@@ -88,18 +88,6 @@ export function BlogPost({ post }: BlogPostProps) {
           </div>
         </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
-          {post.tags?.map((tag, index) => (
-            <span
-              key={index}
-              className="bg-secondary/10 text-secondary px-3 py-1 rounded-md text-sm font-medium hover:bg-secondary/20 transition-colors duration-300 cursor-pointer"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
-
         {/* Share Button - Solo en móvil */}
         <div className="flex justify-between items-center mt-2 mb-3 sm:mt-3 sm:mb-4 lg:hidden">
           <ShareButton 

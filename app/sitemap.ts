@@ -66,12 +66,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
   
   // Posts individuales del blog
-  const blogPostPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug.current}`,
-    lastModified: new Date(post.publishedAt),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }))
+  const blogPostPages: MetadataRoute.Sitemap = blogPosts
+    .filter((post) => post.slug && (post.slug.current || typeof post.slug === 'string'))
+    .map((post) => ({
+      url: `${baseUrl}/blog/${post.slug.current || post.slug}`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }))
   
   return [...staticPages, ...blogPostPages]
 }

@@ -44,8 +44,9 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
     
-    // Verificar si es un post desde Make.com (campos no vacíos)
-    if (body.title && body.title !== "" && body.slug && body.slug !== "" && body.body && body.body !== "") {
+        // Verificar si es un post desde Make.com (campos no vacíos y slug válido)
+        if (body.title && body.title !== "" && body.slug && body.slug !== "" && body.body && body.body !== "" && 
+            typeof body.slug === 'string' && !body.slug.includes('[object Object]')) {
       console.log('Creating post from Make.com:', body.title)
       
       // Manejar categorías - puede venir como array o string
