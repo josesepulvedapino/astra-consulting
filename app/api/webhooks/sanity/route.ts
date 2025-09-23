@@ -20,9 +20,27 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
-    // Verificar si es un post desde Make.com
-    if (body.postId && body.title) {
+    console.log('Webhook received data:', JSON.stringify(body, null, 2))
+    
+    // Verificar si es un post desde Make.com (campos no vacíos)
+    if (body.title && body.title !== "" && body.slug && body.slug !== "" && body.body && body.body !== "") {
       console.log('Creating post from Make.com:', body.title)
+      
+      // Manejar categorías - puede venir como array o string
+      let categoryId = '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
+      if (body.categories && body.categories.length > 0 && body.categories[0] !== "") {
+        categoryId = getCategoryId(body.categories[0])
+      } else if (body.category && body.category !== "") {
+        categoryId = getCategoryId(body.category)
+      }
+      
+      // Manejar tags - puede venir como array o string
+      let tagsArray: string[] = []
+      if (Array.isArray(body.tags)) {
+        tagsArray = body.tags.filter((tag: any) => tag && tag !== "")
+      } else if (body.tags && body.tags !== "") {
+        tagsArray = [body.tags]
+      }
       
       // Crear post en Sanity desde Make.com
       const postData = {
@@ -32,7 +50,7 @@ export async function POST(request: NextRequest) {
           _type: 'slug',
           current: body.slug
         },
-        excerpt: body.excerpt,
+        excerpt: body.excerpt || '',
         body: body.body,
         publishedAt: body.publishedAt || new Date().toISOString(),
         author: {
@@ -42,19 +60,15 @@ export async function POST(request: NextRequest) {
         categories: [
           {
             _type: 'reference',
-            _ref: getCategoryId(body.category) || '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
+            _ref: categoryId
           }
         ],
-        tags: Array.isArray(body.tags) ? body.tags : [body.tags],
-        readTime: body.readTime || '5 min',
-        // mainImage: {
-        //   _type: 'image',
-        //   asset: {
-        //     _type: 'reference',
-        //     _ref: 'image-default-blog'
-        //   }
-        // }
+        tags: tagsArray,
+        readTime: body.readTime || '5 min'
+        // mainImage se agrega manualmente en Sanity Studio
       }
+
+      console.log('Creating post with data:', JSON.stringify(postData, null, 2))
 
       // Crear el post en Sanity
       const result = await sanityClient.create(postData)
@@ -65,52 +79,30 @@ export async function POST(request: NextRequest) {
         message: 'Post created successfully from Make.com',
         postId: result._id,
         title: body.title,
-        slug: body.slug
+        slug: body.slug,
+        success: true
       })
     }
     
-    // Verificar que es una publicación de post desde Sanity
-    if (body._type !== 'post' || body._rev) {
-      return NextResponse.json({ message: 'Not a new post publication' }, { status: 200 })
-    }
-
-    // Preparar datos para Make.com usando los datos del webhook
-     const makePayload = {
-       postId: body._id,
-       title: body.title,
-       slug: body.slug?.current || 'sin-slug',
-       excerpt: body.excerpt,
-       body: body.body, // Portable Text desde Sanity
-       bodyType: 'portable-text', // Indicar el tipo de contenido
-       publishedAt: body.publishedAt,
-       author: body.author?.name || 'Autor',
-       categories: body.categories?.map((cat: any) => cat.title) || [],
-       tags: body.tags || [],
-       readTime: body.readTime,
-       webUrl: `https://astraconsulting.cl/blog/${body.slug?.current || 'sin-slug'}`,
-       timestamp: new Date().toISOString()
-     }
-
-    // Enviar a Make.com (esto se configurará en Make.com)
-    const makeResponse = await fetch(process.env.MAKE_WEBHOOK_URL || '', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.MAKE_API_KEY}`
-      },
-      body: JSON.stringify(makePayload)
+    // Si llegamos aquí, no es una petición válida de Make.com
+    console.log('Invalid request from Make.com - missing required fields')
+    console.log('Received fields:', {
+      title: body.title,
+      slug: body.slug,
+      body: body.body ? 'present' : 'missing',
+      categories: body.categories,
+      tags: body.tags
     })
-
-    if (!makeResponse.ok) {
-      console.error('Error sending to Make.com:', await makeResponse.text())
-      return NextResponse.json({ message: 'Error sending to Make.com' }, { status: 500 })
-    }
-
+    
     return NextResponse.json({ 
-      message: 'Post sent to Make.com successfully',
-      postId: body._id,
-      title: body.title
-    })
+      message: 'Invalid request - missing required fields (title, slug, body)',
+      received: {
+        title: body.title,
+        slug: body.slug,
+        body: body.body ? 'present' : 'missing'
+      }
+    }, { status: 400 })
+
 
   } catch (error) {
     console.error('Webhook error:', error)
