@@ -18,9 +18,30 @@ function getCategoryId(category: string): string {
 // Webhook para recibir notificaciones de Sanity cuando se publique contenido
 export async function POST(request: NextRequest) {
   try {
-    // Leer el body como JSON directamente
-    const body = await request.json()
-    console.log('Webhook received data:', JSON.stringify(body, null, 2))
+    // Leer el body como texto y limpiar caracteres problemáticos
+    const rawBody = await request.text()
+    
+    // Limpiar solo los caracteres de control problemáticos
+    const cleanedBody = rawBody
+      .replace(/\n/g, '\\n')  // Escapar saltos de línea
+      .replace(/\r/g, '\\r')  // Escapar retornos de carro
+      .replace(/\t/g, '\\t')  // Escapar tabulaciones
+    
+    // Parsear el JSON limpio con manejo de errores
+    let body
+    try {
+      body = JSON.parse(cleanedBody)
+      console.log('Webhook received data:', JSON.stringify(body, null, 2))
+    } catch (parseError: any) {
+      console.error('JSON parse error:', parseError.message)
+      console.error('Raw body:', rawBody.substring(0, 1000))
+      console.error('Cleaned body:', cleanedBody.substring(0, 1000))
+      
+      return NextResponse.json({ 
+        message: 'Invalid JSON format',
+        error: parseError.message
+      }, { status: 400 })
+    }
     
     // Verificar si es un post desde Make.com (campos no vacíos)
     if (body.title && body.title !== "" && body.slug && body.slug !== "" && body.body && body.body !== "") {
