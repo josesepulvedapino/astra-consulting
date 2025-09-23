@@ -21,11 +21,8 @@ export async function POST(request: NextRequest) {
     // Leer el body como texto y limpiar caracteres problemáticos
     const rawBody = await request.text()
     
-    // Limpiar solo los caracteres de control problemáticos
+    // NO limpiar el JSON - está llegando correctamente
     const cleanedBody = rawBody
-      .replace(/\n/g, '\\n')  // Escapar saltos de línea
-      .replace(/\r/g, '\\r')  // Escapar retornos de carro
-      .replace(/\t/g, '\\t')  // Escapar tabulaciones
     
     // Parsear el JSON limpio con manejo de errores
     let body
