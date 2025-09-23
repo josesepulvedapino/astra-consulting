@@ -18,7 +18,24 @@ function getCategoryId(category: string): string {
 // Webhook para recibir notificaciones de Sanity cuando se publique contenido
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    // Leer el body como texto primero para debugging
+    const rawBody = await request.text()
+    console.log('Raw body received:', rawBody.substring(0, 500) + '...')
+    
+    // Parsear el JSON con manejo de errores
+    let body
+    try {
+      body = JSON.parse(rawBody)
+    } catch (parseError: any) {
+      console.error('JSON parse error:', parseError.message)
+      console.error('Raw body at error position:', rawBody.substring(Math.max(0, parseError.message.match(/position (\d+)/)?.[1] - 50 || 0), (parseError.message.match(/position (\d+)/)?.[1] || 0) + 50))
+      
+      return NextResponse.json({ 
+        message: 'Invalid JSON format',
+        error: parseError.message,
+        position: parseError.message.match(/position (\d+)/)?.[1]
+      }, { status: 400 })
+    }
     
     console.log('Webhook received data:', JSON.stringify(body, null, 2))
     
