@@ -71,18 +71,34 @@ export async function POST(request: NextRequest) {
 
       console.log('Creating post with data:', JSON.stringify(postData, null, 2))
 
-      // Crear el post en Sanity
-      const result = await sanityClient.create(postData)
-      
-      console.log('Post created successfully:', result._id)
-      
-      return NextResponse.json({ 
-        message: 'Post created successfully from Make.com',
-        postId: result._id,
-        title: body.title,
-        slug: body.slug,
-        success: true
-      })
+      try {
+        // Crear el post en Sanity
+        const result = await sanityClient.create(postData)
+        
+        console.log('Post created successfully:', result._id)
+        
+        return NextResponse.json({ 
+          message: 'Post created successfully from Make.com',
+          postId: result._id,
+          title: body.title,
+          slug: body.slug,
+          success: true
+        })
+      } catch (sanityError: any) {
+        console.error('Sanity error details:', {
+          message: sanityError.message,
+          statusCode: sanityError.statusCode,
+          response: sanityError.response,
+          body: sanityError.body
+        })
+        
+        return NextResponse.json({ 
+          message: 'Error creating post in Sanity',
+          error: sanityError.message,
+          statusCode: sanityError.statusCode,
+          details: sanityError.response || sanityError.body
+        }, { status: 500 })
+      }
     }
     
     // Si llegamos aquí, no es una petición válida de Make.com
