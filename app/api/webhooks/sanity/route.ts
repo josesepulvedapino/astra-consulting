@@ -18,13 +18,16 @@ function getCategoryId(category: string): string {
 // Webhook para recibir notificaciones de Sanity cuando se publique contenido
 export async function POST(request: NextRequest) {
   try {
-    // Leer el body como texto y limpiar caracteres problemáticos
+    // Leer el body como texto
     const rawBody = await request.text()
     
-    // NO limpiar el JSON - está llegando correctamente
+    // Limpiar caracteres de control problemáticos de forma segura
     const cleanedBody = rawBody
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remover caracteres de control
+      .replace(/\r\n/g, '\n') // Normalizar saltos de línea
+      .replace(/\r/g, '\n') // Normalizar retornos de carro
     
-    // Parsear el JSON limpio con manejo de errores
+    // Parsear el JSON con manejo de errores
     let body
     try {
       body = JSON.parse(cleanedBody)
