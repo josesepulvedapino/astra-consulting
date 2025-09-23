@@ -22,10 +22,21 @@ export async function POST(request: NextRequest) {
     const rawBody = await request.text()
     console.log('Raw body received:', rawBody.substring(0, 500) + '...')
     
+    // Limpiar el JSON para manejar caracteres de control
+    const cleanedBody = rawBody
+      .replace(/\n/g, '\\n')  // Escapar saltos de línea
+      .replace(/\r/g, '\\r')  // Escapar retornos de carro
+      .replace(/\t/g, '\\t')  // Escapar tabulaciones
+      .replace(/\f/g, '\\f')  // Escapar avance de página
+      .replace(/\b/g, '\\b')  // Escapar backspace
+      .replace(/\v/g, '\\v')  // Escapar tabulación vertical
+    
+    console.log('Cleaned body:', cleanedBody.substring(0, 500) + '...')
+    
     // Parsear el JSON con manejo de errores
     let body
     try {
-      body = JSON.parse(rawBody)
+      body = JSON.parse(cleanedBody)
     } catch (parseError: any) {
       console.error('JSON parse error:', parseError.message)
       console.error('Raw body at error position:', rawBody.substring(Math.max(0, parseError.message.match(/position (\d+)/)?.[1] - 50 || 0), (parseError.message.match(/position (\d+)/)?.[1] || 0) + 50))
