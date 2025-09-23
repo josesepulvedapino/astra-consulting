@@ -103,6 +103,11 @@ export function Footer() {
                   Casos de Éxito
                 </Link>
               </li>
+              <li>
+                <Link href="/blog" className="text-primary-foreground/80 hover:text-secondary transition-colors">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 

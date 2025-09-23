@@ -1,10 +1,20 @@
 import { MetadataRoute } from 'next'
+import { getAllBlogPosts } from '@/lib/sanity'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://astraconsulting.cl'
   const currentDate = new Date()
   
-  return [
+  // Obtener posts del blog desde Sanity
+  let blogPosts: any[] = []
+  try {
+    blogPosts = await getAllBlogPosts()
+  } catch (error) {
+    console.error('Error fetching blog posts for sitemap:', error)
+  }
+  
+  // Páginas estáticas principales
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: currentDate,
@@ -30,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/blog`,
+      lastModified: currentDate,
+      changeFrequency: 'daily', // Blog principal se actualiza frecuentemente
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/politica-privacidad`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
@@ -48,4 +64,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ]
+  
+  // Posts individuales del blog
+  const blogPostPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug.current}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+  
+  return [...staticPages, ...blogPostPages]
 }
