@@ -39,7 +39,8 @@ export async function POST(request: NextRequest) {
       if (Array.isArray(body.tags)) {
         tagsArray = body.tags.filter((tag: any) => tag && tag !== "")
       } else if (body.tags && body.tags !== "") {
-        tagsArray = [body.tags]
+        // Si es string, dividir por comas y limpiar espacios
+        tagsArray = body.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== "")
       }
       
       // Crear post en Sanity desde Make.com
