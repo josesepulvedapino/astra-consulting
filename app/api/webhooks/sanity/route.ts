@@ -13,7 +13,37 @@ function getCategoryId(category: string): string {
     'Análisis de Datos': '5f244bf3-fcb9-4c09-af21-133802672e7b'
   }
   
-  return categoryMap[category] || '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
+  // Buscar coincidencia exacta primero
+  if (categoryMap[category]) {
+    return categoryMap[category]
+  }
+  
+  // Buscar coincidencia parcial para variaciones
+  const normalizedCategory = category.toLowerCase().trim()
+  for (const [key, id] of Object.entries(categoryMap)) {
+    if (normalizedCategory.includes(key.toLowerCase()) || key.toLowerCase().includes(normalizedCategory)) {
+      return id
+    }
+  }
+  
+  // Mapeo específico para variaciones comunes
+  if (normalizedCategory.includes('automatiz') || normalizedCategory.includes('proceso')) {
+    return '5317e964-14d5-4ce0-a010-6793d30cdcc3' // Automatización
+  }
+  if (normalizedCategory.includes('desarrollo') || normalizedCategory.includes('web') || normalizedCategory.includes('aplicacion')) {
+    return '745c3a7f-9689-41a5-9f2f-573e0ebe9a15' // Desarrollo Web
+  }
+  if (normalizedCategory.includes('marketing') || normalizedCategory.includes('digital')) {
+    return 'a7d53305-0a7e-44ab-ac9e-add304bd7566' // Marketing Digital
+  }
+  if (normalizedCategory.includes('seguridad') || normalizedCategory.includes('ciberseguridad')) {
+    return '1ee7df5b-9acf-49ee-bb2e-4f7e8da80ff6' // Ciberseguridad
+  }
+  if (normalizedCategory.includes('analisis') || normalizedCategory.includes('datos')) {
+    return '5f244bf3-fcb9-4c09-af21-133802672e7b' // Análisis de Datos
+  }
+  
+  return '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
 }
 
 // Webhook para recibir notificaciones de Sanity cuando se publique contenido
@@ -81,12 +111,13 @@ export async function POST(request: NextRequest) {
           _type: 'reference',
           _ref: '9a11d6a2-7a3f-44ad-bd1d-82a81a45ff8a' // ID del autor en Sanity
         },
-        categories: [
-          {
-            _type: 'reference',
-            _ref: categoryId
-          }
-        ],
+            categories: [
+              {
+                _type: 'reference',
+                _ref: categoryId,
+                _key: `category-${Date.now()}`
+              }
+            ],
         tags: tagsArray,
         readTime: body.readTime || '5 min'
         // mainImage se agrega manualmente en Sanity Studio
