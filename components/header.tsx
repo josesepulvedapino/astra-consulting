@@ -146,6 +146,23 @@ export function Header() {
               }`}></span>
             </a>
             <a 
+              href="/blog" 
+              className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
+                isActive('/blog') 
+                  ? 'text-secondary font-semibold' 
+                  : 'text-foreground hover:text-secondary hover:font-semibold'
+              }`}
+              aria-label="Lee nuestro blog de consultoría informática"
+              aria-current={isActive('/blog') ? 'page' : undefined}
+            >
+              Blog
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-secondary transition-all duration-300 ${
+                isActive('/blog') 
+                  ? 'w-full' 
+                  : 'w-0 group-hover:w-full'
+              }`}></span>
+            </a>
+            <a 
               href="/sobre-nosotros" 
               className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
                 isActive('/sobre-nosotros') 
@@ -251,6 +268,22 @@ export function Header() {
                 Casos de Éxito
               </a>
               <a 
+                href="/blog" 
+                onClick={closeMobileMenu}
+                className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
+                  isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                } ${
+                  isActive('/blog') 
+                    ? 'text-secondary font-semibold bg-secondary/10 rounded-md' 
+                    : 'text-foreground hover:text-secondary hover:font-semibold hover:bg-secondary/5 hover:rounded-md'
+                }`}
+                style={{ transitionDelay: isMenuOpen ? '0.3s' : '0s' }}
+                aria-label="Lee nuestro blog de consultoría informática"
+                aria-current={isActive('/blog') ? 'page' : undefined}
+              >
+                Blog
+              </a>
+              <a 
                 href="/sobre-nosotros" 
                 onClick={closeMobileMenu}
                 className={`transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 transform ${
@@ -260,7 +293,7 @@ export function Header() {
                     ? 'text-secondary font-semibold bg-secondary/10 rounded-md' 
                     : 'text-foreground hover:text-secondary hover:font-semibold hover:bg-secondary/5 hover:rounded-md'
                 }`}
-                style={{ transitionDelay: isMenuOpen ? '0.3s' : '0s' }}
+                style={{ transitionDelay: isMenuOpen ? '0.4s' : '0s' }}
                 aria-label="Conoce más sobre Astra Consulting"
                 aria-current={isActive('/sobre-nosotros') ? 'page' : undefined}
               >
@@ -269,7 +302,7 @@ export function Header() {
               <div className={`flex flex-col space-y-4 pt-4 transform transition-all duration-300 ${
                 isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
-              style={{ transitionDelay: isMenuOpen ? '0.4s' : '0s' }}
+              style={{ transitionDelay: isMenuOpen ? '0.5s' : '0s' }}
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 

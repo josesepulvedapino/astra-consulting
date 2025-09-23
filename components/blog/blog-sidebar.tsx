@@ -1,0 +1,181 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { TrendingUp, Clock, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
+import { urlFor } from "@/lib/sanity"
+import { NewsletterForm } from "@/components/newsletter-form"
+import type { BlogPost } from "@/lib/sanity"
+
+interface BlogSidebarProps {
+  relatedPosts: BlogPost[]
+  allPosts?: BlogPost[]
+}
+
+export function BlogSidebar({ relatedPosts, allPosts = [] }: BlogSidebarProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('es-CL', {
+      month: 'short',
+      day: 'numeric'
+    })
+  }
+
+  // Obtener posts populares (los más recientes)
+  const popularPosts = relatedPosts.slice(0, 3)
+
+  // Obtener categorías reales con conteos (usar todos los posts si están disponibles)
+  const postsForCategories = allPosts.length > 0 ? allPosts : relatedPosts
+  const categoryCounts = postsForCategories.reduce((acc: Record<string, { count: number, slug: string }>, post) => {
+    post.categories?.forEach(category => {
+      if (!acc[category.title]) {
+        acc[category.title] = { count: 0, slug: category.slug?.current || category.title.toLowerCase().replace(/\s+/g, '-') }
+      }
+      acc[category.title].count += 1
+    })
+    return acc
+  }, {})
+
+  const categories = Object.entries(categoryCounts)
+    .map(([name, data]) => ({ name, count: data.count, slug: data.slug }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5) // Top 5 categorías
+
+  return (
+    <div className="space-y-8">
+      {/* Related Posts */}
+      <Card className="bg-card/80 backdrop-blur-sm border-border/50">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-secondary" />
+            Artículos Relacionados
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {relatedPosts.map((post, index) => (
+            <div key={index} className="group hover-lift transition-all duration-300 ease-out">
+              <Link href={`/blog/${post.slug.current}`} className="block">
+                <div className="flex gap-4">
+                  <div className="relative flex-shrink-0">
+                    <Image
+                      src={post.mainImage ? urlFor(post.mainImage).width(80).height(80).url() : "/placeholder.jpg"}
+                      alt={post.title}
+                      width={80}
+                      height={80}
+                      className="w-20 h-20 rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground group-hover:text-secondary transition-colors duration-300 line-clamp-2 mb-2">
+                      {post.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      <span>{post.readTime || '5 min'}</span>
+                      <span>•</span>
+                      <span>{formatDate(post.publishedAt)}</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Popular Posts */}
+      <Card className="bg-card/80 backdrop-blur-sm border-border/50">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-secondary" />
+            Más Populares
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {popularPosts.map((post, index) => (
+            <div key={index} className="group hover-lift transition-all duration-300 ease-out">
+              <Link href={`/blog/${post.slug.current}`} className="block">
+                <div className="flex items-start gap-3">
+                  <div className="bg-secondary/10 text-secondary w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 group-hover:bg-secondary group-hover:text-secondary-foreground transition-all duration-300">
+                    {index + 1}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-medium text-foreground group-hover:text-secondary transition-colors duration-300 line-clamp-2 mb-1">
+                      {post.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      <span>{post.readTime || '5 min'}</span>
+                    </div>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-secondary transition-colors duration-300 flex-shrink-0" />
+                </div>
+              </Link>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Categories */}
+      <Card className="bg-card/80 backdrop-blur-sm border-border/50">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-foreground">
+            Categorías
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {categories.map((category, index) => (
+            <Link
+              key={index}
+              href={`/blog?category=${category.slug}`}
+              className="flex items-center justify-between p-3 rounded-lg hover:bg-secondary/10 hover:text-secondary transition-all duration-300 cursor-pointer group"
+            >
+              <span className="font-medium text-secondary group-hover:text-secondary">{category.name}</span>
+              <span className="bg-secondary/10 text-secondary px-2 py-1 rounded-full text-sm font-medium group-hover:bg-secondary group-hover:text-secondary-foreground transition-all duration-300">
+                {category.count}
+              </span>
+            </Link>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Newsletter Signup */}
+      <Card className="bg-gradient-to-br from-secondary/10 via-accent/5 to-secondary/10 border-secondary/20">
+        <CardContent className="p-6 text-center">
+          <div className="bg-secondary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+            <TrendingUp className="h-6 w-6 text-secondary" />
+          </div>
+          <h3 className="font-bold text-foreground mb-2">
+            Mantente Actualizado
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Recibe nuestros artículos más recientes sobre tecnología y consultoría.
+          </p>
+          <NewsletterForm 
+            showName={false}
+            buttonText="Suscribirse"
+            placeholder="Tu email"
+          />
+        </CardContent>
+      </Card>
+
+      {/* CTA */}
+      <Card className="bg-gradient-to-br from-secondary/20 via-accent/10 to-secondary/20 border-secondary/30">
+        <CardContent className="p-6 text-center">
+          <h3 className="font-bold text-foreground mb-2">
+            ¿Necesitas Consultoría?
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Agenda una consulta gratuita y descubre cómo podemos ayudar a tu empresa.
+          </p>
+          <Button asChild className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale transition-all duration-300 cursor-pointer text-sm">
+            <Link href="/#contacto">
+              Consulta Gratuita
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
