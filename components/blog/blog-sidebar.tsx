@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { TrendingUp, Clock, ArrowRight } from "lucide-react"
+import { TrendingUp, Clock, ArrowRight, Link2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { urlFor } from "@/lib/sanity"
@@ -47,7 +47,7 @@ export function BlogSidebar({ relatedPosts, allPosts = [] }: BlogSidebarProps) {
       <Card className="bg-card/80 backdrop-blur-sm border-border/50">
         <CardHeader>
           <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-secondary" />
+            <Link2 className="h-5 w-5 text-secondary" />
             Artículos Relacionados
           </CardTitle>
         </CardHeader>

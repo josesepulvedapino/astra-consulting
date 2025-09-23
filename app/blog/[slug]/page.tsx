@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     <>
       <Header />
       <main id="main-content" className="min-h-screen" tabIndex={-1}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-20 pb-8 sm:pb-12 lg:pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-12">
             <div className="lg:col-span-3">
               <BlogPost post={post} />

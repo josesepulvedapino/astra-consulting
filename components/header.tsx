@@ -110,7 +110,7 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8 flex-1 justify-center" role="navigation" aria-label="Navegación principal">
+          <nav className="hidden xl:flex items-center space-x-8 flex-1 justify-center" role="navigation" aria-label="Navegación principal">
             <a 
               href="/servicios" 
               className={`relative transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md px-2 py-1 group ${
@@ -181,7 +181,7 @@ export function Header() {
             </a>
           </nav>
 
-          <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
+          <div className="hidden xl:flex items-center space-x-4 flex-shrink-0">
             <Button 
               asChild
               variant="outline" 
@@ -208,7 +208,7 @@ export function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex-shrink-0">
+          <div className="xl:hidden flex-shrink-0">
             <button 
               className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:rounded-md p-1" 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -224,7 +224,7 @@ export function Header() {
         {/* Mobile Navigation */}
         <div 
           id="mobile-menu" 
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          className={`xl:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isMenuOpen 
               ? 'max-h-96 opacity-100 py-4 border-t border-border' 
               : 'max-h-0 opacity-0 py-0 border-t-0'

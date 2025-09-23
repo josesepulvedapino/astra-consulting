@@ -24,8 +24,8 @@ export function BlogPost({ post }: BlogPostProps) {
 
   return (
     <article className="max-w-4xl mx-auto">
-      {/* Back Button */}
-      <div className="mb-8">
+      {/* Back Button - Solo en desktop */}
+      <div className="mb-8 hidden lg:block">
         <Button asChild variant="ghost" className="hover:bg-secondary/10 hover:text-secondary transition-all duration-300 cursor-pointer">
           <Link href="/blog" className="flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
@@ -53,32 +53,43 @@ export function BlogPost({ post }: BlogPostProps) {
           )}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-balance mb-6 leading-tight">
+        <h1 className="text-4xl md:text-5xl font-bold text-balance mb-4 leading-tight">
           {post.title}
         </h1>
 
-        <p className="text-xl text-muted-foreground text-pretty mb-8 leading-relaxed">
+        <p className="text-xl text-muted-foreground text-pretty mb-3 sm:mb-4 leading-relaxed">
           {post.excerpt}
         </p>
 
         {/* Article Meta */}
-        <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-8">
-           <div className="flex items-center gap-2">
-             <User className="h-4 w-4" />
-             <span>{post.author?.name || 'Autor'}</span>
-           </div>
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" />
-            <span>{formatDate(post.publishedAt)}</span>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-3 sm:mb-4">
+          {/* Meta Info */}
+          <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              <span>{post.author?.name || 'Autor'}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              <span>{formatDate(post.publishedAt)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              <span>{post.readTime || '5'} min de lectura</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            <span>{post.readTime || '5'} min de lectura</span>
+          
+          {/* Share Button - Solo en desktop, a la derecha */}
+          <div className="hidden lg:block">
+            <ShareButton 
+              title={post.title}
+              url={`https://astraconsulting.cl/blog/${post.slug.current}`}
+            />
           </div>
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
           {post.tags?.map((tag, index) => (
             <span
               key={index}
@@ -89,17 +100,17 @@ export function BlogPost({ post }: BlogPostProps) {
           ))}
         </div>
 
-                 {/* Share Button */}
-                 <div className="flex justify-between items-center">
-                   <ShareButton 
-                     title={post.title}
-                     url={`https://astraconsulting.cl/blog/${post.slug.current}`}
-                   />
-                 </div>
+        {/* Share Button - Solo en móvil */}
+        <div className="flex justify-between items-center mt-2 mb-3 sm:mt-3 sm:mb-4 lg:hidden">
+          <ShareButton 
+            title={post.title}
+            url={`https://astraconsulting.cl/blog/${post.slug.current}`}
+          />
+        </div>
       </header>
 
       {/* Featured Image */}
-      <div className="mb-12">
+      <div className="mb-8 sm:mb-12">
          <div className="relative overflow-hidden rounded-xl">
            <Image
              src={post.mainImage ? urlFor(post.mainImage).width(800).height(400).url() : "/placeholder.jpg"}
