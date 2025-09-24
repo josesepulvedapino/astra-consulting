@@ -18,8 +18,7 @@ export function ShareButton({ title, url, className = "" }: ShareButtonProps) {
   return (
     <Button
       onClick={handleShare}
-      variant="outline"
-      className={`hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 cursor-pointer ${className}`}
+      className={`bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-all duration-300 cursor-pointer ${className}`}
     >
       <Share2 className="h-4 w-4 mr-2" />
       Compartir

@@ -196,19 +196,26 @@ function renderHTML(htmlString: string) {
   
   const parseInlineHTML = (content: string): React.ReactNode => {
     // Parsear HTML inline como strong, em, etc.
-    const strongRegex = /<strong[^>]*>(.*?)<\/strong>/g
-    const emRegex = /<em[^>]*>(.*?)<\/em>/g
+    const strongRegex = /<strong[^>]*>(.*?)<\/strong>/gi
+    const emRegex = /<em[^>]*>(.*?)<\/em>/gi
+    const bRegex = /<b[^>]*>(.*?)<\/b>/gi
+    const iRegex = /<i[^>]*>(.*?)<\/i>/gi
     
     let processedContent = content
-    const elements: React.ReactNode[] = []
     
-    // Reemplazar strong
+    // Reemplazar strong y b (ambos para negrita)
     processedContent = processedContent.replace(strongRegex, (match, text) => {
       return `__STRONG__${text}__/STRONG__`
     })
+    processedContent = processedContent.replace(bRegex, (match, text) => {
+      return `__STRONG__${text}__/STRONG__`
+    })
     
-    // Reemplazar em
+    // Reemplazar em e i (ambos para cursiva)
     processedContent = processedContent.replace(emRegex, (match, text) => {
+      return `__EM__${text}__/EM__`
+    })
+    processedContent = processedContent.replace(iRegex, (match, text) => {
       return `__EM__${text}__/EM__`
     })
     
@@ -224,8 +231,8 @@ function renderHTML(htmlString: string) {
         const text = part.replace(/^__EM__|__\/EM__$/g, '')
         return <em key={index} className="italic">{text}</em>
       }
-      return part
-    })
+      return part || ''
+    }).filter(part => part !== '')
   }
   
   const elements = parseHTML(htmlString)

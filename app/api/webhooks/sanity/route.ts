@@ -78,6 +78,7 @@ export async function POST(request: NextRequest) {
         if (body.title && body.title !== "" && body.slug && body.slug !== "" && body.body && body.body !== "" && 
             typeof body.slug === 'string' && !body.slug.includes('[object Object]')) {
       console.log('Creating post from Make.com:', body.title)
+      console.log('Body content preview:', body.body ? body.body.substring(0, 200) + '...' : 'No body content')
       
       // Manejar categorías - puede venir como array o string
       let categoryId = '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
@@ -131,13 +132,21 @@ export async function POST(request: NextRequest) {
         
             console.log('Post created successfully:', result._id)
             
-            // Revalidar cache de Next.js
+            // Revalidar cache de Next.js con más cobertura
             try {
               revalidatePath('/blog')
               revalidatePath('/blog/[slug]', 'page')
               revalidatePath('/sitemap.xml')
+              revalidatePath('/')
               revalidateTag('blog-posts')
-              console.log('Cache revalidated successfully')
+              revalidateTag('sanity-data')
+              
+              // Revalidar específicamente el slug del post creado
+              if (body.slug) {
+                revalidatePath(`/blog/${body.slug}`)
+              }
+              
+              console.log('Cache revalidated successfully for all paths')
             } catch (revalidateError) {
               console.error('Error revalidating cache:', revalidateError)
             }
@@ -170,12 +179,14 @@ export async function POST(request: NextRequest) {
         if (body._type === 'post' || (body.document && body.document._type === 'post')) {
           console.log('Sanity Studio notification - revalidating cache')
           
-          // Revalidar cache de Next.js
+          // Revalidar cache de Next.js con más cobertura
           try {
             revalidatePath('/blog')
             revalidatePath('/blog/[slug]', 'page')
             revalidatePath('/sitemap.xml')
+            revalidatePath('/')
             revalidateTag('blog-posts')
+            revalidateTag('sanity-data')
             console.log('Cache revalidated successfully from Sanity Studio')
           } catch (revalidateError) {
             console.error('Error revalidating cache:', revalidateError)
