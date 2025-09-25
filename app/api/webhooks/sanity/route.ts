@@ -97,6 +97,43 @@ export async function POST(request: NextRequest) {
         tagsArray = body.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== "")
       }
       
+      // Procesar imagen si viene en el request
+      let mainImageData = null
+      if (body.imageUrl) {
+        try {
+          console.log('Uploading image from URL:', body.imageUrl)
+          
+          // Descargar imagen desde URL
+          const imageResponse = await fetch(body.imageUrl)
+          if (!imageResponse.ok) {
+            throw new Error(`Failed to fetch image: ${imageResponse.statusText}`)
+          }
+          
+          const imageBuffer = await imageResponse.arrayBuffer()
+          const imageType = imageResponse.headers.get('content-type') || 'image/jpeg'
+          
+          // Subir imagen a Sanity
+          const imageAsset = await sanityClient.assets.upload('image', Buffer.from(imageBuffer), {
+            filename: `blog-image-${Date.now()}.jpg`,
+            contentType: imageType
+          })
+          
+          console.log('Image uploaded successfully:', imageAsset._id)
+          
+          mainImageData = {
+            _type: 'image',
+            asset: {
+              _type: 'reference',
+              _ref: imageAsset._id
+            },
+            alt: body.imageAlt || 'Blog post image'
+          }
+        } catch (imageError: any) {
+          console.error('Error uploading image:', imageError.message)
+          // Continuar sin imagen si falla la subida
+        }
+      }
+
       // Crear post en Sanity desde Make.com
       const postData = {
         _type: 'post',
@@ -120,8 +157,8 @@ export async function POST(request: NextRequest) {
               }
             ],
         tags: tagsArray,
-        readTime: body.readTime || '5 min'
-        // mainImage se agrega manualmente en Sanity Studio
+        readTime: body.readTime || '5 min',
+        ...(mainImageData && { mainImage: mainImageData })
       }
 
       console.log('Creating post with data:', JSON.stringify(postData, null, 2))
