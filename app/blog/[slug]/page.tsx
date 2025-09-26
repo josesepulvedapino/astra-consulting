@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               <BlogPost post={post} />
             </div>
             <aside className="lg:col-span-1 order-last lg:order-last">
-              <BlogSidebar relatedPosts={relatedPosts} allPosts={allPosts} />
+              <BlogSidebar currentPost={post} allPosts={allPosts} />
             </aside>
           </div>
         </div>

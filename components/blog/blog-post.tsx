@@ -101,7 +101,7 @@ export function BlogPost({ post }: BlogPostProps) {
       <div className="mb-8 sm:mb-12">
          <div className="relative overflow-hidden rounded-xl">
            <Image
-             src={post.mainImage ? urlFor(post.mainImage).width(800).height(400).url() : "/placeholder.jpg"}
+             src={post.mainImage ? urlFor(post.mainImage).width(1200).height(630).quality(90).url() : "/placeholder.jpg"}
              alt={post.title}
              width={800}
              height={400}

@@ -25,7 +25,7 @@ export function BlogCard({ post }: BlogCardProps) {
       <Card className="group hover-lift transition-all duration-500 ease-out border-border hover:border-secondary/50 h-full flex flex-col relative overflow-hidden bg-card/80 backdrop-blur-sm cursor-pointer pt-0">
         <div className="relative overflow-hidden">
           <Image
-            src={post.mainImage ? urlFor(post.mainImage).width(400).height(250).url() : "/placeholder.jpg"}
+            src={post.mainImage ? urlFor(post.mainImage).width(600).height(375).quality(85).url() : "/placeholder.jpg"}
             alt={post.title}
             width={400}
             height={250}

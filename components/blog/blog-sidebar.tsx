@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { TrendingUp, Clock, ArrowRight, Link2 } from "lucide-react"
+import { TrendingUp, Clock, Link2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { urlFor } from "@/lib/sanity"
@@ -8,11 +8,11 @@ import { NewsletterForm } from "@/components/newsletter-form"
 import type { BlogPost } from "@/lib/sanity"
 
 interface BlogSidebarProps {
-  relatedPosts: BlogPost[]
-  allPosts?: BlogPost[]
+  currentPost: BlogPost
+  allPosts: BlogPost[]
 }
 
-export function BlogSidebar({ relatedPosts, allPosts = [] }: BlogSidebarProps) {
+export function BlogSidebar({ currentPost, allPosts }: BlogSidebarProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('es-CL', {
@@ -21,12 +21,53 @@ export function BlogSidebar({ relatedPosts, allPosts = [] }: BlogSidebarProps) {
     })
   }
 
-  // Obtener posts populares (los más recientes)
-  const popularPosts = relatedPosts.slice(0, 3)
+  // Obtener posts relacionados basados en etiquetas comunes
+  const getRelatedPosts = () => {
+    if (!currentPost.tags || currentPost.tags.length === 0) {
+      return allPosts.filter(post => post._id !== currentPost._id).slice(0, 4)
+    }
 
-  // Obtener categorías reales con conteos (usar todos los posts si están disponibles)
-  const postsForCategories = allPosts.length > 0 ? allPosts : relatedPosts
-  const categoryCounts = postsForCategories.reduce((acc: Record<string, { count: number, slug: string }>, post) => {
+    const relatedPosts = allPosts
+      .filter(post => post._id !== currentPost._id)
+      .map(post => {
+        const commonTags = post.tags?.filter(tag => 
+          currentPost.tags?.includes(tag)
+        ) || []
+        return {
+          ...post,
+          commonTagsCount: commonTags.length
+        }
+      })
+      .filter(post => post.commonTagsCount > 0)
+      .sort((a, b) => b.commonTagsCount - a.commonTagsCount)
+      .slice(0, 4)
+
+    // Si no hay suficientes posts con etiquetas comunes, completar con posts de la misma categoría
+    if (relatedPosts.length < 4) {
+      const categoryPosts = allPosts
+        .filter(post => 
+          post._id !== currentPost._id &&
+          !relatedPosts.find(rp => rp._id === post._id) &&
+          post.categories?.some(cat => 
+            currentPost.categories?.some(currentCat => currentCat.title === cat.title)
+          )
+        )
+        .map(post => ({
+          ...post,
+          commonTagsCount: 0
+        }))
+        .slice(0, 4 - relatedPosts.length)
+      
+      relatedPosts.push(...categoryPosts)
+    }
+
+    return relatedPosts
+  }
+
+  const relatedPosts = getRelatedPosts()
+
+  // Obtener categorías reales con conteos
+  const categoryCounts = allPosts.reduce((acc: Record<string, { count: number, slug: string }>, post) => {
     post.categories?.forEach(category => {
       if (!acc[category.title]) {
         acc[category.title] = { count: 0, slug: category.slug?.current || category.title.toLowerCase().replace(/\s+/g, '-') }
@@ -58,7 +99,7 @@ export function BlogSidebar({ relatedPosts, allPosts = [] }: BlogSidebarProps) {
                 <div className="flex gap-4">
                   <div className="relative flex-shrink-0">
                     <Image
-                      src={post.mainImage ? urlFor(post.mainImage).width(80).height(80).url() : "/placeholder.jpg"}
+                      src={post.mainImage ? urlFor(post.mainImage).width(160).height(160).quality(80).url() : "/placeholder.jpg"}
                       alt={post.title}
                       width={80}
                       height={80}
@@ -77,39 +118,6 @@ export function BlogSidebar({ relatedPosts, allPosts = [] }: BlogSidebarProps) {
                       <span>{formatDate(post.publishedAt)}</span>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-
-      {/* Popular Posts */}
-      <Card className="bg-card/80 backdrop-blur-sm border-border/50">
-        <CardHeader>
-          <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-secondary" />
-            Más Populares
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {popularPosts.map((post, index) => (
-            <div key={index} className="group hover-lift transition-all duration-300 ease-out">
-              <Link href={`/blog/${post.slug.current}`} className="block">
-                <div className="flex items-start gap-3">
-                  <div className="bg-secondary/10 text-secondary w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 group-hover:bg-secondary group-hover:text-secondary-foreground transition-all duration-300">
-                    {index + 1}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-foreground group-hover:text-secondary transition-colors duration-300 line-clamp-2 mb-1">
-                      {post.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-3 w-3" />
-                      <span>{post.readTime || '5 min'}</span>
-                    </div>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-secondary transition-colors duration-300 flex-shrink-0" />
                 </div>
               </Link>
             </div>
