@@ -55,7 +55,15 @@ function validateAndSanitizeData(body: any) {
     errors.push('Title is required and must be a non-empty string')
   }
   
-  if (!body.slug || typeof body.slug !== 'string' || body.slug.trim() === '') {
+  // Manejar slug que puede venir como objeto o string
+  let slugValue = ''
+  if (typeof body.slug === 'string') {
+    slugValue = body.slug
+  } else if (body.slug && typeof body.slug === 'object' && body.slug.current) {
+    slugValue = body.slug.current
+  }
+  
+  if (!slugValue || slugValue.trim() === '') {
     errors.push('Slug is required and must be a non-empty string')
   }
   
@@ -66,7 +74,7 @@ function validateAndSanitizeData(body: any) {
   // Sanitizar datos
   const sanitizedData = {
     title: body.title?.trim() || '',
-    slug: body.slug?.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '',
+    slug: slugValue.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, ''),
     body: body.body?.trim() || '',
     excerpt: body.excerpt?.trim() || '',
     publishedAt: body.publishedAt || new Date().toISOString(),
@@ -304,6 +312,19 @@ export async function POST(request: NextRequest) {
       
       return NextResponse.json({ 
         message: 'Cache revalidated from Sanity Studio',
+        success: true
+      })
+    }
+    
+    // Verificar si es una notificación de eliminación de post
+    if (body._type === 'post' && body._deleted) {
+      console.log('Post deleted notification - clearing cache')
+      
+      // Limpiar cache de manera robusta
+      await clearCache()
+      
+      return NextResponse.json({ 
+        message: 'Cache cleared after post deletion',
         success: true
       })
     }
