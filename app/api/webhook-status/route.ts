@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       sanity: {
         status: sanityStatus,
         error,
-        recentPosts: recentPosts.map(post => ({
+        recentPosts: recentPosts.map((post: any) => ({
           id: post._id,
           title: post.title,
           slug: post.slug?.current,
