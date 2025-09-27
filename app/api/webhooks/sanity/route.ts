@@ -3,7 +3,10 @@ import { sanityClient } from '@/lib/sanity'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 // Función para mapear categorías de OpenAI a IDs de Sanity
-function getCategoryId(category: string): string {
+function getCategoryId(category: unknown): string {
+  if (typeof category !== 'string') {
+    return '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto si no es string
+  }
   const categoryMap: { [key: string]: string } = {
     'SEO': '84977b7e-fc3e-4607-99e3-4eed7433189a',
     'Marketing Digital': 'a7d53305-0a7e-44ab-ac9e-add304bd7566',
@@ -157,8 +160,39 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
     
-    // Verificar si es un post desde Make.com
-    if (body.title && body.slug && body.body) {
+    // 1) Ignorar eventos de activos de imagen de Sanity
+    if (body._type === 'sanity.imageAsset' || (typeof body._type === 'string' && body._type.includes('sanity.image'))) {
+      console.log('Ignoring Sanity image asset webhook')
+      return NextResponse.json({ message: 'Ignored image asset event', success: true })
+    }
+
+    // 2) Notificación de Sanity Studio (documento post creado/actualizado)
+    const isSanityPostEvent = body._type === 'post' || (body.document && body.document._type === 'post')
+    if (isSanityPostEvent) {
+      console.log('Sanity Studio notification - revalidating cache')
+      await clearCache(body.slug?.current || undefined)
+      return NextResponse.json({ 
+        message: 'Cache revalidated from Sanity Studio',
+        success: true
+      })
+    }
+
+    // 3) Evento proveniente de Make.com (marcadores únicos del payload)
+    const isMakePayload = (
+      !!body.webUrl &&
+      (!!body.postId || !!body.timestamp) &&
+      (typeof body.bodyType === 'string')
+    )
+
+    if (isMakePayload) {
+      // Validar secreto opcional si está configurado
+      const makeSecret = process.env.MAKE_WEBHOOK_SECRET
+      const providedSecret = request.headers.get('x-webhook-secret') || request.headers.get('x-make-secret')
+      if (makeSecret && providedSecret !== makeSecret) {
+        console.warn('Unauthorized Make.com request: invalid secret')
+        return NextResponse.json({ message: 'Unauthorized', success: false }, { status: 401 })
+      }
+
       console.log('Creating post from Make.com:', body.title)
       
       // Validar y sanitizar datos
@@ -187,19 +221,19 @@ export async function POST(request: NextRequest) {
       // Manejar categorías
       let categoryId = '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
       if (sanitizedData.categories && sanitizedData.categories.length > 0) {
-        const category = Array.isArray(sanitizedData.categories) 
+        const categoryCandidate = Array.isArray(sanitizedData.categories) 
           ? sanitizedData.categories[0] 
           : sanitizedData.categories
-        if (category && category !== "") {
-          categoryId = getCategoryId(category)
+        if (typeof categoryCandidate === 'string' && categoryCandidate.trim() !== "") {
+          categoryId = getCategoryId(categoryCandidate)
         }
       }
       
       // Manejar tags
       let tagsArray: string[] = []
       if (Array.isArray(sanitizedData.tags)) {
-        tagsArray = sanitizedData.tags.filter((tag: any) => tag && tag !== "")
-      } else if (sanitizedData.tags && sanitizedData.tags !== "") {
+        tagsArray = sanitizedData.tags.filter((tag: any) => typeof tag === 'string' && tag.trim() !== "")
+      } else if (typeof sanitizedData.tags === 'string' && sanitizedData.tags.trim() !== "") {
         tagsArray = sanitizedData.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== "")
       }
       
@@ -303,20 +337,7 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Verificar si es una notificación de Sanity Studio (cambios en posts)
-    if (body._type === 'post' || (body.document && body.document._type === 'post')) {
-      console.log('Sanity Studio notification - revalidating cache')
-      
-      // Limpiar cache de manera robusta
-      await clearCache()
-      
-      return NextResponse.json({ 
-        message: 'Cache revalidated from Sanity Studio',
-        success: true
-      })
-    }
-    
-    // Verificar si es una notificación de eliminación de post
+    // 4) Verificar si es una notificación de eliminación de post
     if (body._type === 'post' && body._deleted) {
       console.log('Post deleted notification - clearing cache')
       
@@ -329,26 +350,9 @@ export async function POST(request: NextRequest) {
       })
     }
     
-    // Si llegamos aquí, no es una petición válida
-    console.log('Invalid request - not from Make.com or Sanity Studio')
-    console.log('Received fields:', {
-      title: body.title,
-      slug: body.slug,
-      body: body.body ? 'present' : 'missing',
-      _type: body._type,
-      document: body.document
-    })
-    
-    return NextResponse.json({ 
-      message: 'Invalid request - not recognized',
-      received: {
-        title: body.title,
-        slug: body.slug,
-        body: body.body ? 'present' : 'missing',
-        _type: body._type
-      },
-      success: false
-    }, { status: 400 })
+    // 5) Si llegamos aquí, no es un evento relevante. Devolver 204 para evitar reintentos.
+    console.log('Ignoring unrelated webhook event')
+    return new NextResponse(null, { status: 204 })
 
   } catch (error) {
     console.error('Webhook error:', error)

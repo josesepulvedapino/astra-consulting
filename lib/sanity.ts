@@ -5,7 +5,8 @@ import imageUrlBuilder from '@sanity/image-url'
 export const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'your-project-id',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-  useCdn: process.env.NODE_ENV === 'production',
+  // Desactivar CDN para consistencia de lectura tras escritura (evita retrasos en sitemap/blog)
+  useCdn: false,
   apiVersion: '2024-01-01',
   token: process.env.SANITY_API_TOKEN, // Token con permisos de escritura
 })
