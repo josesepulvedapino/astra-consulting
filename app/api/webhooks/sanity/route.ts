@@ -74,7 +74,7 @@ function validateAndSanitizeData(body: any) {
   // Sanitizar datos
   const sanitizedData = {
     title: body.title?.trim() || '',
-    slug: slugValue.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, ''),
+    slug: slugValue ? slugValue.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') : '',
     body: body.body?.trim() || '',
     excerpt: body.excerpt?.trim() || '',
     publishedAt: body.publishedAt || new Date().toISOString(),
