@@ -46,6 +46,80 @@ function getCategoryId(category: string): string {
   return '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
 }
 
+// Función para validar y sanitizar datos de entrada
+function validateAndSanitizeData(body: any) {
+  const errors: string[] = []
+  
+  // Validar campos requeridos
+  if (!body.title || typeof body.title !== 'string' || body.title.trim() === '') {
+    errors.push('Title is required and must be a non-empty string')
+  }
+  
+  if (!body.slug || typeof body.slug !== 'string' || body.slug.trim() === '') {
+    errors.push('Slug is required and must be a non-empty string')
+  }
+  
+  if (!body.body || typeof body.body !== 'string' || body.body.trim() === '') {
+    errors.push('Body is required and must be a non-empty string')
+  }
+  
+  // Sanitizar datos
+  const sanitizedData = {
+    title: body.title?.trim() || '',
+    slug: body.slug?.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '',
+    body: body.body?.trim() || '',
+    excerpt: body.excerpt?.trim() || '',
+    publishedAt: body.publishedAt || new Date().toISOString(),
+    readTime: body.readTime || '5 min',
+    imageUrl: body.imageUrl || null,
+    imageAlt: body.imageAlt || null,
+    categories: body.categories || body.category || [],
+    tags: body.tags || [],
+    // Campos adicionales para SEO
+    metaDescription: body.meta_description || body.excerpt?.trim() || '',
+    keywords: body.keywordsArray || body.keywords || [],
+    schemaType: body.schema_type || 'BlogPosting',
+    difficultyLevel: body.difficulty_level || 'Intermedio'
+  }
+  
+  return { sanitizedData, errors }
+}
+
+// Función para verificar si ya existe un post con el mismo slug
+async function checkDuplicateSlug(slug: string): Promise<boolean> {
+  try {
+    const existingPost = await sanityClient.fetch(
+      `*[_type == "post" && slug.current == "${slug}"][0] { _id }`
+    )
+    return !!existingPost
+  } catch (error) {
+    console.error('Error checking duplicate slug:', error)
+    return false
+  }
+}
+
+// Función para limpiar cache de manera más robusta
+async function clearCache(slug?: string) {
+  try {
+    // Limpiar cache general
+    await revalidatePath('/blog')
+    await revalidatePath('/blog/[slug]', 'page')
+    await revalidatePath('/sitemap.xml')
+    await revalidatePath('/')
+    await revalidateTag('blog-posts')
+    await revalidateTag('sanity-data')
+    
+    // Limpiar cache específico del post si se proporciona slug
+    if (slug) {
+      await revalidatePath(`/blog/${slug}`)
+    }
+    
+    console.log('Cache cleared successfully')
+  } catch (error) {
+    console.error('Error clearing cache:', error)
+  }
+}
+
 // Webhook para recibir notificaciones de Sanity cuando se publique contenido
 export async function POST(request: NextRequest) {
   try {
@@ -70,41 +144,65 @@ export async function POST(request: NextRequest) {
       
       return NextResponse.json({ 
         message: 'Invalid JSON format',
-        error: parseError.message
+        error: parseError.message,
+        success: false
       }, { status: 400 })
     }
     
-        // Verificar si es un post desde Make.com (campos no vacíos y slug válido)
-        if (body.title && body.title !== "" && body.slug && body.slug !== "" && body.body && body.body !== "" && 
-            typeof body.slug === 'string' && !body.slug.includes('[object Object]')) {
+    // Verificar si es un post desde Make.com
+    if (body.title && body.slug && body.body) {
       console.log('Creating post from Make.com:', body.title)
-      console.log('Body content preview:', body.body ? body.body.substring(0, 200) + '...' : 'No body content')
       
-      // Manejar categorías - puede venir como array o string
-      let categoryId = '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
-      if (body.categories && body.categories.length > 0 && body.categories[0] !== "") {
-        categoryId = getCategoryId(body.categories[0])
-      } else if (body.category && body.category !== "") {
-        categoryId = getCategoryId(body.category)
+      // Validar y sanitizar datos
+      const { sanitizedData, errors } = validateAndSanitizeData(body)
+      
+      if (errors.length > 0) {
+        console.error('Validation errors:', errors)
+        return NextResponse.json({ 
+          message: 'Validation failed',
+          errors,
+          success: false
+        }, { status: 400 })
       }
       
-      // Manejar tags - puede venir como array o string
+      // Verificar si ya existe un post con el mismo slug
+      const isDuplicate = await checkDuplicateSlug(sanitizedData.slug)
+      if (isDuplicate) {
+        console.log('Duplicate slug detected:', sanitizedData.slug)
+        return NextResponse.json({ 
+          message: 'Post with this slug already exists',
+          slug: sanitizedData.slug,
+          success: false
+        }, { status: 409 }) // Conflict status
+      }
+      
+      // Manejar categorías
+      let categoryId = '84977b7e-fc3e-4607-99e3-4eed7433189a' // SEO por defecto
+      if (sanitizedData.categories && sanitizedData.categories.length > 0) {
+        const category = Array.isArray(sanitizedData.categories) 
+          ? sanitizedData.categories[0] 
+          : sanitizedData.categories
+        if (category && category !== "") {
+          categoryId = getCategoryId(category)
+        }
+      }
+      
+      // Manejar tags
       let tagsArray: string[] = []
-      if (Array.isArray(body.tags)) {
-        tagsArray = body.tags.filter((tag: any) => tag && tag !== "")
-      } else if (body.tags && body.tags !== "") {
-        // Si es string, dividir por comas y limpiar espacios
-        tagsArray = body.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== "")
+      if (Array.isArray(sanitizedData.tags)) {
+        tagsArray = sanitizedData.tags.filter((tag: any) => tag && tag !== "")
+      } else if (sanitizedData.tags && sanitizedData.tags !== "") {
+        tagsArray = sanitizedData.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== "")
       }
       
       // Procesar imagen si viene en el request
       let mainImageData = null
-      if (body.imageUrl) {
+      if (sanitizedData.imageUrl) {
         try {
-          console.log('Uploading image from URL:', body.imageUrl)
+          console.log('Uploading image from URL:', sanitizedData.imageUrl)
           
           // Descargar imagen desde URL
-          const imageResponse = await fetch(body.imageUrl)
+          const imageResponse = await fetch(sanitizedData.imageUrl)
           if (!imageResponse.ok) {
             throw new Error(`Failed to fetch image: ${imageResponse.statusText}`)
           }
@@ -126,7 +224,7 @@ export async function POST(request: NextRequest) {
               _type: 'reference',
               _ref: imageAsset._id
             },
-            alt: body.imageAlt || 'Blog post image'
+            alt: sanitizedData.imageAlt || 'Blog post image'
           }
         } catch (imageError: any) {
           console.error('Error uploading image:', imageError.message)
@@ -137,27 +235,27 @@ export async function POST(request: NextRequest) {
       // Crear post en Sanity desde Make.com
       const postData = {
         _type: 'post',
-        title: body.title,
+        title: sanitizedData.title,
         slug: {
           _type: 'slug',
-          current: body.slug
+          current: sanitizedData.slug
         },
-        excerpt: body.excerpt || '',
-        body: body.body,
-        publishedAt: body.publishedAt || new Date().toISOString(),
+        excerpt: sanitizedData.excerpt,
+        body: sanitizedData.body,
+        publishedAt: sanitizedData.publishedAt,
         author: {
           _type: 'reference',
           _ref: '9a11d6a2-7a3f-44ad-bd1d-82a81a45ff8a' // ID del autor en Sanity
         },
-            categories: [
-              {
-                _type: 'reference',
-                _ref: categoryId,
-                _key: `category-${Date.now()}`
-              }
-            ],
+        categories: [
+          {
+            _type: 'reference',
+            _ref: categoryId,
+            _key: `category-${Date.now()}`
+          }
+        ],
         tags: tagsArray,
-        readTime: body.readTime || '5 min',
+        readTime: sanitizedData.readTime,
         ...(mainImageData && { mainImage: mainImageData })
       }
 
@@ -167,34 +265,18 @@ export async function POST(request: NextRequest) {
         // Crear el post en Sanity
         const result = await sanityClient.create(postData)
         
-            console.log('Post created successfully:', result._id)
-            
-            // Revalidar cache de Next.js con más cobertura
-            try {
-              revalidatePath('/blog')
-              revalidatePath('/blog/[slug]', 'page')
-              revalidatePath('/sitemap.xml')
-              revalidatePath('/')
-              revalidateTag('blog-posts')
-              revalidateTag('sanity-data')
-              
-              // Revalidar específicamente el slug del post creado
-              if (body.slug) {
-                revalidatePath(`/blog/${body.slug}`)
-              }
-              
-              console.log('Cache revalidated successfully for all paths')
-            } catch (revalidateError) {
-              console.error('Error revalidating cache:', revalidateError)
-            }
-            
-            return NextResponse.json({ 
-              message: 'Post created successfully from Make.com',
-              postId: result._id,
-              title: body.title,
-              slug: body.slug,
-              success: true
-            })
+        console.log('Post created successfully:', result._id)
+        
+        // Limpiar cache de manera robusta
+        await clearCache(sanitizedData.slug)
+        
+        return NextResponse.json({ 
+          message: 'Post created successfully from Make.com',
+          postId: result._id,
+          title: sanitizedData.title,
+          slug: sanitizedData.slug,
+          success: true
+        })
       } catch (sanityError: any) {
         console.error('Sanity error details:', {
           message: sanityError.message,
@@ -207,58 +289,53 @@ export async function POST(request: NextRequest) {
           message: 'Error creating post in Sanity',
           error: sanityError.message,
           statusCode: sanityError.statusCode,
-          details: sanityError.response || sanityError.body
+          details: sanityError.response || sanityError.body,
+          success: false
         }, { status: 500 })
       }
-        }
-        
-        // Verificar si es una notificación de Sanity Studio (cambios en posts)
-        if (body._type === 'post' || (body.document && body.document._type === 'post')) {
-          console.log('Sanity Studio notification - revalidating cache')
-          
-          // Revalidar cache de Next.js con más cobertura
-          try {
-            revalidatePath('/blog')
-            revalidatePath('/blog/[slug]', 'page')
-            revalidatePath('/sitemap.xml')
-            revalidatePath('/')
-            revalidateTag('blog-posts')
-            revalidateTag('sanity-data')
-            console.log('Cache revalidated successfully from Sanity Studio')
-          } catch (revalidateError) {
-            console.error('Error revalidating cache:', revalidateError)
-          }
-          
-          return NextResponse.json({ 
-            message: 'Cache revalidated from Sanity Studio',
-            success: true
-          })
-        }
-        
-        // Si llegamos aquí, no es una petición válida
-        console.log('Invalid request - not from Make.com or Sanity Studio')
-        console.log('Received fields:', {
-          title: body.title,
-          slug: body.slug,
-          body: body.body ? 'present' : 'missing',
-          _type: body._type,
-          document: body.document
-        })
-        
-        return NextResponse.json({ 
-          message: 'Invalid request - not recognized',
-          received: {
-            title: body.title,
-            slug: body.slug,
-            body: body.body ? 'present' : 'missing',
-            _type: body._type
-          }
-        }, { status: 400 })
-
+    }
+    
+    // Verificar si es una notificación de Sanity Studio (cambios en posts)
+    if (body._type === 'post' || (body.document && body.document._type === 'post')) {
+      console.log('Sanity Studio notification - revalidating cache')
+      
+      // Limpiar cache de manera robusta
+      await clearCache()
+      
+      return NextResponse.json({ 
+        message: 'Cache revalidated from Sanity Studio',
+        success: true
+      })
+    }
+    
+    // Si llegamos aquí, no es una petición válida
+    console.log('Invalid request - not from Make.com or Sanity Studio')
+    console.log('Received fields:', {
+      title: body.title,
+      slug: body.slug,
+      body: body.body ? 'present' : 'missing',
+      _type: body._type,
+      document: body.document
+    })
+    
+    return NextResponse.json({ 
+      message: 'Invalid request - not recognized',
+      received: {
+        title: body.title,
+        slug: body.slug,
+        body: body.body ? 'present' : 'missing',
+        _type: body._type
+      },
+      success: false
+    }, { status: 400 })
 
   } catch (error) {
     console.error('Webhook error:', error)
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 })
+    return NextResponse.json({ 
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error',
+      success: false
+    }, { status: 500 })
   }
 }
 
