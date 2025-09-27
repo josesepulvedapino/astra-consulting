@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Calendar, Clock, User, Share2, ArrowLeft } from "lucide-react"
+import { Calendar, Clock, User, Share2, ArrowLeft, Rocket } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { urlFor } from "@/lib/sanity"
@@ -118,25 +118,25 @@ export function BlogPost({ post }: BlogPostProps) {
 
       {/* Author Bio */}
       <Card className="mt-12 bg-card/80 backdrop-blur-sm border-border/50">
-        <CardContent className="p-8">
-          <div className="flex items-start gap-6">
-             <div className="relative">
+        <CardContent className="p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+             <div className="relative flex-shrink-0 mx-auto sm:mx-0">
                <Image
                  src={post.author?.image ? urlFor(post.author.image).width(80).height(80).url() : "/placeholder.jpg"}
                  alt={post.author?.name || "Autor"}
                  width={80}
                  height={80}
-                 className="w-20 h-20 rounded-full object-cover"
+                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
                />
              </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-foreground mb-2">
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
                 {post.author?.name || "Autor"}
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
                 Equipo de consultoría informática especializado en transformación digital, SEO y desarrollo de soluciones tecnológicas para empresas chilenas.
               </p>
-              <div className="flex gap-3">
+              <div className="flex justify-center sm:justify-start">
                 <Button 
                   asChild 
                   size="sm" 
@@ -147,42 +147,52 @@ export function BlogPost({ post }: BlogPostProps) {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </Link>
                 </Button>
-                <Button 
-                  asChild 
-                  size="sm" 
-                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
-                >
-                  <Link href="/#contacto">
-                    <span className="relative z-10">Contactar</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Link>
-                </Button>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* CTA Section */}
-      <div className="mt-12 bg-gradient-to-br from-secondary/10 via-accent/5 to-secondary/10 rounded-2xl p-8 md:p-12 text-center">
-        <h3 className="text-2xl md:text-3xl font-bold text-balance mb-4">
-          ¿Necesitas ayuda con tu <span className="text-secondary">transformación digital</span>?
-        </h3>
-        <p className="text-muted-foreground text-pretty mb-8 max-w-2xl mx-auto">
-          En Astra Consulting ayudamos a empresas chilenas a implementar estrategias de SEO, desarrollo web y automatización de procesos.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden">
-            <Link href="/#contacto">
-              <span className="relative z-10">Consulta Gratuita</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="hover-scale hover-glow transition-all duration-300 cursor-pointer">
-            <Link href="/servicios">Ver Servicios</Link>
-          </Button>
-        </div>
-      </div>
+      {/* CTA Motivador Card */}
+      <Card className="mt-12 bg-card/80 backdrop-blur-sm border-border/50">
+        <CardContent className="p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+            <div className="relative flex-shrink-0 mx-auto sm:mx-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-secondary to-accent flex items-center justify-center">
+                <Rocket className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+              </div>
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="text-lg sm:text-2xl font-bold text-foreground mb-3">
+                ¿Te gustó este artículo? ¡Transforma tu empresa!
+              </h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
+                En Astra Consulting ayudamos a empresas chilenas como la tuya a implementar las mejores soluciones tecnológicas. Desde SEO hasta automatización, te acompañamos en cada paso de tu transformación digital.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-start">
+                <Button 
+                  asChild 
+                  size="sm" 
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale hover-glow transition-all duration-300 cursor-pointer group relative overflow-hidden"
+                >
+                  <Link href="/#contacto">
+                    <span className="relative z-10">Consulta Gratuita</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Link>
+                </Button>
+                <Button 
+                  asChild 
+                  size="sm" 
+                  variant="outline" 
+                  className="hover-scale hover-glow transition-all duration-300 cursor-pointer"
+                >
+                  <Link href="/servicios">Ver Servicios</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </article>
   )
 }

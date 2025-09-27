@@ -168,23 +168,6 @@ export function BlogSidebar({ currentPost, allPosts }: BlogSidebarProps) {
         </CardContent>
       </Card>
 
-      {/* CTA */}
-      <Card className="bg-gradient-to-br from-secondary/20 via-accent/10 to-secondary/20 border-secondary/30">
-        <CardContent className="p-6 text-center">
-          <h3 className="font-bold text-foreground mb-2">
-            ¿Necesitas Consultoría?
-          </h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Agenda una consulta gratuita y descubre cómo podemos ayudar a tu empresa.
-          </p>
-          <Button asChild className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground hover-scale transition-all duration-300 cursor-pointer text-sm group relative overflow-hidden">
-            <Link href="/#contacto">
-              <span className="relative z-10">Consulta Gratuita</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
     </div>
   )
 }
